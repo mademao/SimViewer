@@ -16,5 +16,7 @@ int main(int argc, const char * argv[]) {
     AppDelegate *appDelegate = [[AppDelegate alloc] init];
     application.delegate = appDelegate;
     
+    //若要程序不在Dock中出现的话，需在Info.plist中设置 Application is agent (UIElement) 为 YES
+    
     return NSApplicationMain(argc, argv);
 }
