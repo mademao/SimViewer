@@ -10,7 +10,6 @@
 		41BC456720E4FD0100C7F905 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC456620E4FD0100C7F905 /* AppDelegate.m */; };
 		41BC456A20E4FD0100C7F905 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC456920E4FD0100C7F905 /* ViewController.m */; };
 		41BC456C20E4FD0200C7F905 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41BC456B20E4FD0200C7F905 /* Assets.xcassets */; };
-		41BC456F20E4FD0200C7F905 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41BC456D20E4FD0200C7F905 /* Main.storyboard */; };
 		41BC457220E4FD0200C7F905 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC457120E4FD0200C7F905 /* main.m */; };
 /* End PBXBuildFile section */
 
@@ -21,7 +20,6 @@
 		41BC456820E4FD0100C7F905 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		41BC456920E4FD0100C7F905 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		41BC456B20E4FD0200C7F905 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		41BC456E20E4FD0200C7F905 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		41BC457020E4FD0200C7F905 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41BC457120E4FD0200C7F905 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		41BC457320E4FD0200C7F905 /* SimViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimViewer.entitlements; sourceTree = "<group>"; };
@@ -62,7 +60,6 @@
 				41BC456820E4FD0100C7F905 /* ViewController.h */,
 				41BC456920E4FD0100C7F905 /* ViewController.m */,
 				41BC456B20E4FD0200C7F905 /* Assets.xcassets */,
-				41BC456D20E4FD0200C7F905 /* Main.storyboard */,
 				41BC457020E4FD0200C7F905 /* Info.plist */,
 				41BC457120E4FD0200C7F905 /* main.m */,
 				41BC457320E4FD0200C7F905 /* SimViewer.entitlements */,
@@ -128,7 +125,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				41BC456C20E4FD0200C7F905 /* Assets.xcassets in Resources */,
-				41BC456F20E4FD0200C7F905 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,17 +142,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		41BC456D20E4FD0200C7F905 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				41BC456E20E4FD0200C7F905 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		41BC457420E4FD0200C7F905 /* Debug */ = {
