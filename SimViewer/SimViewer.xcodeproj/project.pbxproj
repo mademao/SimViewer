@@ -52,14 +52,30 @@
 		41BC456420E4FD0100C7F905 /* SimViewer */ = {
 			isa = PBXGroup;
 			children = (
-				41BC456520E4FD0100C7F905 /* AppDelegate.h */,
-				41BC456620E4FD0100C7F905 /* AppDelegate.m */,
+				41BC45E520E6228700C7F905 /* Core */,
+				41BC45E420E6222E00C7F905 /* Supporting Files */,
+			);
+			path = SimViewer;
+			sourceTree = "<group>";
+		};
+		41BC45E420E6222E00C7F905 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
 				41BC456B20E4FD0200C7F905 /* Assets.xcassets */,
 				41BC457020E4FD0200C7F905 /* Info.plist */,
 				41BC457120E4FD0200C7F905 /* main.m */,
 				41BC457320E4FD0200C7F905 /* SimViewer.entitlements */,
 			);
-			path = SimViewer;
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		41BC45E520E6228700C7F905 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				41BC456520E4FD0100C7F905 /* AppDelegate.h */,
+				41BC456620E4FD0100C7F905 /* AppDelegate.m */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,7 +270,7 @@
 				CODE_SIGN_ENTITLEMENTS = SimViewer/SimViewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = SimViewer/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SimViewer/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -271,7 +287,7 @@
 				CODE_SIGN_ENTITLEMENTS = SimViewer/SimViewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = SimViewer/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SimViewer/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
