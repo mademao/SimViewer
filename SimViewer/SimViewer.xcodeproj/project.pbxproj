@@ -17,6 +17,7 @@
 		41BC460220E63F0900C7F905 /* MDMSimulatorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC460120E63F0900C7F905 /* MDMSimulatorModel.m */; };
 		41BC460520E640D500C7F905 /* MDMBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC460420E640D500C7F905 /* MDMBaseModel.m */; };
 		41BC460820E654DE00C7F905 /* MDMSimulatorGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC460720E654DE00C7F905 /* MDMSimulatorGroupModel.m */; };
+		41BC460C20E6641600C7F905 /* MDMMenuTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC460B20E6641600C7F905 /* MDMMenuTool.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,8 @@
 		41BC460420E640D500C7F905 /* MDMBaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMBaseModel.m; sourceTree = "<group>"; };
 		41BC460620E654DE00C7F905 /* MDMSimulatorGroupModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMSimulatorGroupModel.h; sourceTree = "<group>"; };
 		41BC460720E654DE00C7F905 /* MDMSimulatorGroupModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMSimulatorGroupModel.m; sourceTree = "<group>"; };
+		41BC460A20E6641600C7F905 /* MDMMenuTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMMenuTool.h; sourceTree = "<group>"; };
+		41BC460B20E6641600C7F905 /* MDMMenuTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMMenuTool.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +107,7 @@
 		41BC45E720E6234D00C7F905 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				41BC460920E663DF00C7F905 /* Menu */,
 				41BC45FB20E63E2600C7F905 /* Simulator */,
 				41BC45F120E63DBF00C7F905 /* Task */,
 			);
@@ -145,6 +149,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		41BC460920E663DF00C7F905 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				41BC460A20E6641600C7F905 /* MDMMenuTool.h */,
+				41BC460B20E6641600C7F905 /* MDMMenuTool.m */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -155,6 +168,7 @@
 				41BC455E20E4FD0100C7F905 /* Sources */,
 				41BC455F20E4FD0100C7F905 /* Frameworks */,
 				41BC456020E4FD0100C7F905 /* Resources */,
+				41BC460D20E6669E00C7F905 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -208,6 +222,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		41BC460D20E6669E00C7F905 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\n\nTAGS=\"TODO:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		41BC455E20E4FD0100C7F905 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -220,6 +250,7 @@
 				41BC460520E640D500C7F905 /* MDMBaseModel.m in Sources */,
 				41BC457220E4FD0200C7F905 /* main.m in Sources */,
 				41BC460220E63F0900C7F905 /* MDMSimulatorModel.m in Sources */,
+				41BC460C20E6641600C7F905 /* MDMMenuTool.m in Sources */,
 				41BC456720E4FD0100C7F905 /* AppDelegate.m in Sources */,
 				41BC45FE20E63E8600C7F905 /* MDMSimulatorTool.m in Sources */,
 			);

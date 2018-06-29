@@ -28,6 +28,8 @@
     self.statusItem.highlightMode = YES;
     //是否可交互
     self.statusItem.enabled = YES;
+    //设置操作列表
+    self.statusItem.menu = [[NSMenu alloc] init];
     
     [MDMSimulatorTool getAllSimulatorGroupWithBooted:YES];
 }
