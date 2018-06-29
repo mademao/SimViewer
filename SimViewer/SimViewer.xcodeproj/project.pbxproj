@@ -10,9 +10,9 @@
 		41BC456720E4FD0100C7F905 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC456620E4FD0100C7F905 /* AppDelegate.m */; };
 		41BC456C20E4FD0200C7F905 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41BC456B20E4FD0200C7F905 /* Assets.xcassets */; };
 		41BC457220E4FD0200C7F905 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC457120E4FD0200C7F905 /* main.m */; };
-		41BC45EA20E6237200C7F905 /* MDMTaskTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC45E920E6237200C7F905 /* MDMTaskTool.m */; };
-		41BC45ED20E6258100C7F905 /* MDMXcrunTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC45EC20E6258100C7F905 /* MDMXcrunTool.m */; };
-		41BC45F020E62D3800C7F905 /* MDMStringFormatTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC45EF20E62D3800C7F905 /* MDMStringFormatTool.m */; };
+		41BC45F820E63DBF00C7F905 /* MDMTaskTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC45F220E63DBF00C7F905 /* MDMTaskTool.m */; };
+		41BC45F920E63DBF00C7F905 /* MDMXcrunTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC45F320E63DBF00C7F905 /* MDMXcrunTool.m */; };
+		41BC45FA20E63DBF00C7F905 /* MDMStringFormatTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC45F720E63DBF00C7F905 /* MDMStringFormatTool.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,12 +23,12 @@
 		41BC457020E4FD0200C7F905 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41BC457120E4FD0200C7F905 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		41BC457320E4FD0200C7F905 /* SimViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimViewer.entitlements; sourceTree = "<group>"; };
-		41BC45E820E6237200C7F905 /* MDMTaskTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMTaskTool.h; sourceTree = "<group>"; };
-		41BC45E920E6237200C7F905 /* MDMTaskTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMTaskTool.m; sourceTree = "<group>"; };
-		41BC45EB20E6258100C7F905 /* MDMXcrunTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMXcrunTool.h; sourceTree = "<group>"; };
-		41BC45EC20E6258100C7F905 /* MDMXcrunTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMXcrunTool.m; sourceTree = "<group>"; };
-		41BC45EE20E62D3800C7F905 /* MDMStringFormatTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMStringFormatTool.h; sourceTree = "<group>"; };
-		41BC45EF20E62D3800C7F905 /* MDMStringFormatTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMStringFormatTool.m; sourceTree = "<group>"; };
+		41BC45F220E63DBF00C7F905 /* MDMTaskTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDMTaskTool.m; sourceTree = "<group>"; };
+		41BC45F320E63DBF00C7F905 /* MDMXcrunTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDMXcrunTool.m; sourceTree = "<group>"; };
+		41BC45F420E63DBF00C7F905 /* MDMStringFormatTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDMStringFormatTool.h; sourceTree = "<group>"; };
+		41BC45F520E63DBF00C7F905 /* MDMTaskTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDMTaskTool.h; sourceTree = "<group>"; };
+		41BC45F620E63DBF00C7F905 /* MDMXcrunTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDMXcrunTool.h; sourceTree = "<group>"; };
+		41BC45F720E63DBF00C7F905 /* MDMStringFormatTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDMStringFormatTool.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,14 +91,22 @@
 		41BC45E720E6234D00C7F905 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
-				41BC45E820E6237200C7F905 /* MDMTaskTool.h */,
-				41BC45E920E6237200C7F905 /* MDMTaskTool.m */,
-				41BC45EB20E6258100C7F905 /* MDMXcrunTool.h */,
-				41BC45EC20E6258100C7F905 /* MDMXcrunTool.m */,
-				41BC45EE20E62D3800C7F905 /* MDMStringFormatTool.h */,
-				41BC45EF20E62D3800C7F905 /* MDMStringFormatTool.m */,
+				41BC45F120E63DBF00C7F905 /* Task */,
 			);
 			path = Tool;
+			sourceTree = "<group>";
+		};
+		41BC45F120E63DBF00C7F905 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				41BC45F220E63DBF00C7F905 /* MDMTaskTool.m */,
+				41BC45F320E63DBF00C7F905 /* MDMXcrunTool.m */,
+				41BC45F420E63DBF00C7F905 /* MDMStringFormatTool.h */,
+				41BC45F520E63DBF00C7F905 /* MDMTaskTool.h */,
+				41BC45F620E63DBF00C7F905 /* MDMXcrunTool.h */,
+				41BC45F720E63DBF00C7F905 /* MDMStringFormatTool.m */,
+			);
+			path = Task;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,9 +177,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41BC45F020E62D3800C7F905 /* MDMStringFormatTool.m in Sources */,
-				41BC45EA20E6237200C7F905 /* MDMTaskTool.m in Sources */,
-				41BC45ED20E6258100C7F905 /* MDMXcrunTool.m in Sources */,
+				41BC45F920E63DBF00C7F905 /* MDMXcrunTool.m in Sources */,
+				41BC45FA20E63DBF00C7F905 /* MDMStringFormatTool.m in Sources */,
+				41BC45F820E63DBF00C7F905 /* MDMTaskTool.m in Sources */,
 				41BC457220E4FD0200C7F905 /* main.m in Sources */,
 				41BC456720E4FD0100C7F905 /* AppDelegate.m in Sources */,
 			);
