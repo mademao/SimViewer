@@ -10,4 +10,11 @@
 
 @interface MDMStringFormatTool : NSObject
 
+/**
+ 解析模拟器信息字符串
+ @param string 模拟器信息字符串
+ @return 解析结果
+ */
++ (NSDictionary *)analyzeSimulatorInfoString:(NSString *)string;
+
 @end

@@ -12,7 +12,7 @@
 
 #pragma mark - public methods
 
-///执行命令
+///执行命令，如果要执行沙盒之外的命令，需要在Capabilities中关闭App Sandbox选项
 + (NSString *)excute:(NSString *)commandPath arguments:(NSArray<NSString *> *)arguments {
     //初始化task
     NSTask *task = [[NSTask alloc] init];

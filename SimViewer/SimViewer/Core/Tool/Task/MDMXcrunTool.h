@@ -8,8 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-///xcrun命令所在位置
-extern NSString * const MDMXcrunCommandPath;
+@interface MDMXcrunTool : NSObject
 
-///simctl参数
-extern NSString * const MDMXcrunSimctlArgument;
+/**
+ 获取所有模拟器信息
+ @param booted 是否是正在运行的
+ @return 符合条件的模拟器信息，按运行系统分组
+ */
++ (NSDictionary *)getAllSimulatorInfoWithBooted:(BOOL)booted;
+
+@end

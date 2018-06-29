@@ -13,6 +13,10 @@
 		41BC45F820E63DBF00C7F905 /* MDMTaskTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC45F220E63DBF00C7F905 /* MDMTaskTool.m */; };
 		41BC45F920E63DBF00C7F905 /* MDMXcrunTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC45F320E63DBF00C7F905 /* MDMXcrunTool.m */; };
 		41BC45FA20E63DBF00C7F905 /* MDMStringFormatTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC45F720E63DBF00C7F905 /* MDMStringFormatTool.m */; };
+		41BC45FE20E63E8600C7F905 /* MDMSimulatorTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC45FD20E63E8600C7F905 /* MDMSimulatorTool.m */; };
+		41BC460220E63F0900C7F905 /* MDMSimulatorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC460120E63F0900C7F905 /* MDMSimulatorModel.m */; };
+		41BC460520E640D500C7F905 /* MDMBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC460420E640D500C7F905 /* MDMBaseModel.m */; };
+		41BC460820E654DE00C7F905 /* MDMSimulatorGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC460720E654DE00C7F905 /* MDMSimulatorGroupModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +33,14 @@
 		41BC45F520E63DBF00C7F905 /* MDMTaskTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDMTaskTool.h; sourceTree = "<group>"; };
 		41BC45F620E63DBF00C7F905 /* MDMXcrunTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDMXcrunTool.h; sourceTree = "<group>"; };
 		41BC45F720E63DBF00C7F905 /* MDMStringFormatTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDMStringFormatTool.m; sourceTree = "<group>"; };
+		41BC45FC20E63E8600C7F905 /* MDMSimulatorTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMSimulatorTool.h; sourceTree = "<group>"; };
+		41BC45FD20E63E8600C7F905 /* MDMSimulatorTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMSimulatorTool.m; sourceTree = "<group>"; };
+		41BC460020E63F0900C7F905 /* MDMSimulatorModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMSimulatorModel.h; sourceTree = "<group>"; };
+		41BC460120E63F0900C7F905 /* MDMSimulatorModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMSimulatorModel.m; sourceTree = "<group>"; };
+		41BC460320E640D500C7F905 /* MDMBaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMBaseModel.h; sourceTree = "<group>"; };
+		41BC460420E640D500C7F905 /* MDMBaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMBaseModel.m; sourceTree = "<group>"; };
+		41BC460620E654DE00C7F905 /* MDMSimulatorGroupModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMSimulatorGroupModel.h; sourceTree = "<group>"; };
+		41BC460720E654DE00C7F905 /* MDMSimulatorGroupModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMSimulatorGroupModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +93,7 @@
 		41BC45E520E6228700C7F905 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				41BC45FF20E63EFA00C7F905 /* Model */,
 				41BC45E720E6234D00C7F905 /* Tool */,
 				41BC456520E4FD0100C7F905 /* AppDelegate.h */,
 				41BC456620E4FD0100C7F905 /* AppDelegate.m */,
@@ -91,6 +104,7 @@
 		41BC45E720E6234D00C7F905 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				41BC45FB20E63E2600C7F905 /* Simulator */,
 				41BC45F120E63DBF00C7F905 /* Task */,
 			);
 			path = Tool;
@@ -99,14 +113,36 @@
 		41BC45F120E63DBF00C7F905 /* Task */ = {
 			isa = PBXGroup;
 			children = (
+				41BC45F520E63DBF00C7F905 /* MDMTaskTool.h */,
 				41BC45F220E63DBF00C7F905 /* MDMTaskTool.m */,
+				41BC45F620E63DBF00C7F905 /* MDMXcrunTool.h */,
 				41BC45F320E63DBF00C7F905 /* MDMXcrunTool.m */,
 				41BC45F420E63DBF00C7F905 /* MDMStringFormatTool.h */,
-				41BC45F520E63DBF00C7F905 /* MDMTaskTool.h */,
-				41BC45F620E63DBF00C7F905 /* MDMXcrunTool.h */,
 				41BC45F720E63DBF00C7F905 /* MDMStringFormatTool.m */,
 			);
 			path = Task;
+			sourceTree = "<group>";
+		};
+		41BC45FB20E63E2600C7F905 /* Simulator */ = {
+			isa = PBXGroup;
+			children = (
+				41BC45FC20E63E8600C7F905 /* MDMSimulatorTool.h */,
+				41BC45FD20E63E8600C7F905 /* MDMSimulatorTool.m */,
+			);
+			path = Simulator;
+			sourceTree = "<group>";
+		};
+		41BC45FF20E63EFA00C7F905 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				41BC460320E640D500C7F905 /* MDMBaseModel.h */,
+				41BC460420E640D500C7F905 /* MDMBaseModel.m */,
+				41BC460620E654DE00C7F905 /* MDMSimulatorGroupModel.h */,
+				41BC460720E654DE00C7F905 /* MDMSimulatorGroupModel.m */,
+				41BC460020E63F0900C7F905 /* MDMSimulatorModel.h */,
+				41BC460120E63F0900C7F905 /* MDMSimulatorModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,9 +215,13 @@
 			files = (
 				41BC45F920E63DBF00C7F905 /* MDMXcrunTool.m in Sources */,
 				41BC45FA20E63DBF00C7F905 /* MDMStringFormatTool.m in Sources */,
+				41BC460820E654DE00C7F905 /* MDMSimulatorGroupModel.m in Sources */,
 				41BC45F820E63DBF00C7F905 /* MDMTaskTool.m in Sources */,
+				41BC460520E640D500C7F905 /* MDMBaseModel.m in Sources */,
 				41BC457220E4FD0200C7F905 /* main.m in Sources */,
+				41BC460220E63F0900C7F905 /* MDMSimulatorModel.m in Sources */,
 				41BC456720E4FD0100C7F905 /* AppDelegate.m in Sources */,
+				41BC45FE20E63E8600C7F905 /* MDMSimulatorTool.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

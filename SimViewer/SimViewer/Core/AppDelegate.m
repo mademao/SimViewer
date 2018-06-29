@@ -7,8 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "MDMTaskTool.h"
-#import "MDMXcrunTool.h"
+#import "MDMSimulatorTool.h"
 
 @interface AppDelegate ()
 
@@ -30,8 +29,7 @@
     //是否可交互
     self.statusItem.enabled = YES;
     
-    //xcrun simctl appinfo 32065FC5-641B-48E0-9318-6C087A9F1BE7 "com.sogou.cloudExpression.test"
-    [MDMTaskTool excute:MDMXcrunCommandPath arguments:@[MDMXcrunSimctlArgument, @"appinfo", @"32065FC5-641B-48E0-9318-6C087A9F1BE7", @"com.sogou.cloudExpression.test"]];
+    [MDMSimulatorTool getAllSimulatorWithBooted:YES];
 }
 
 
