@@ -26,7 +26,7 @@
  -- Unavailable: com.apple.CoreSimulator.SimRuntime.iOS-11-3 --
  iPhone 5s (697B2589-6B3A-4FCB-8571-E5AE0DA49F56) (Shutdown) (unavailable, runtime profile not found)
  */
-+ (NSDictionary *)analyzeSimulatorInfoString:(NSString *)string {
++ (NSDictionary<NSString *, NSArray<NSString *> *> *)analyzeSimulatorInfoString:(NSString *)string {
     NSMutableDictionary *simulatorInfoDic = [NSMutableDictionary dictionary];
     
     //保存拆分结果

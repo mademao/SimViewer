@@ -13,10 +13,10 @@
 @interface MDMSimulatorTool : NSObject
 
 /**
- 获取所有模拟器
+ 获取满足条件的所有模拟器
  @param booted 是否是正在运行的
  @return 符合条件的模拟器数组
  */
-+ (NSArray<MDMSimulatorGroupModel *> *)getAllSimulatorWithBooted:(BOOL)booted;
++ (NSArray<MDMSimulatorGroupModel *> *)getAllSimulatorGroupWithBooted:(BOOL)booted;
 
 @end

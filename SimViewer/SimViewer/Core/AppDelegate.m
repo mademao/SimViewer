@@ -29,7 +29,7 @@
     //是否可交互
     self.statusItem.enabled = YES;
     
-    [MDMSimulatorTool getAllSimulatorWithBooted:YES];
+    [MDMSimulatorTool getAllSimulatorGroupWithBooted:YES];
 }
 
 

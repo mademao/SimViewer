@@ -10,4 +10,13 @@
 
 @interface MDMSimulatorModel : MDMBaseModel
 
+///名称
+@property (nonatomic, copy) NSString *name;
+
+///标识
+@property (nonatomic, copy) NSString *identifier;
+
+///是否在运行
+@property (nonatomic, assign) BOOL booted;
+
 @end

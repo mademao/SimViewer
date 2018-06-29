@@ -24,7 +24,7 @@ static NSString * const kMDMXcrunSimctlArgument = @"simctl";
 @implementation MDMXcrunTool
 
 ///获取所有模拟器信息
-+ (NSDictionary *)getAllSimulatorInfoWithBooted:(BOOL)booted {
++ (NSDictionary<NSString *, NSArray<NSString *> *> *)getAllSimulatorInfo {
     
     //xcrun simctl list 列出所有设备（同时会列出支持的机型和系统），devices代表只展示设备
     NSString *taskResult = [MDMTaskTool excute:kMDMXcrunCommandPath arguments:@[kMDMXcrunSimctlArgument, @"list", @"devices"]];

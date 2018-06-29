@@ -7,7 +7,14 @@
 //
 
 #import "MDMBaseModel.h"
+#import "MDMSimulatorModel.h"
 
 @interface MDMSimulatorGroupModel : MDMBaseModel
+
+///分组所对应的运行系统
+@property (nonatomic, copy) NSString *os;
+
+///处于该运行系统分组下的模拟器
+@property (nonatomic, copy) NSArray<MDMSimulatorModel *> *simulatorArray;
 
 @end

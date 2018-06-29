@@ -15,6 +15,6 @@
  @param string 模拟器信息字符串
  @return 解析结果
  */
-+ (NSDictionary *)analyzeSimulatorInfoString:(NSString *)string;
++ (NSDictionary<NSString *, NSArray<NSString *> *> *)analyzeSimulatorInfoString:(NSString *)string;
 
 @end

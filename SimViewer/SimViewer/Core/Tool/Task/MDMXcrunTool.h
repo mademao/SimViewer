@@ -12,9 +12,8 @@
 
 /**
  获取所有模拟器信息
- @param booted 是否是正在运行的
  @return 符合条件的模拟器信息，按运行系统分组
  */
-+ (NSDictionary *)getAllSimulatorInfoWithBooted:(BOOL)booted;
++ (NSDictionary<NSString *, NSArray<NSString *> *> *)getAllSimulatorInfo;
 
 @end
