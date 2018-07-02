@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "MDMSimulatorTool.h"
+#import "MDMMenuTool.h"
 
 @interface AppDelegate ()
 
@@ -31,7 +31,7 @@
     //设置操作列表
     self.statusItem.menu = [[NSMenu alloc] init];
     
-    [MDMSimulatorTool getAllSimulatorGroupWithBooted:YES];
+    self.statusItem.menu = [[MDMMenuTool sharedMenuTool] createMenuList];
 }
 
 

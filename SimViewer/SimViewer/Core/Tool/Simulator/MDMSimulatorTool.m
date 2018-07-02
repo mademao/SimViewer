@@ -8,7 +8,6 @@
 
 #import "MDMSimulatorTool.h"
 #import "MDMXcrunTool.h"
-#import "MDMSimulatorGroupModel.h"
 
 @implementation MDMSimulatorTool
 

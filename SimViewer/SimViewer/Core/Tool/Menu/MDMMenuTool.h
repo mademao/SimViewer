@@ -23,4 +23,10 @@
  */
 - (NSMenu *)createMenuList;
 
+/**
+ 异步生成此刻所需展示列表
+ @param block 异步生成回调
+ */
+- (void)asyncCreateMenuListWithBlock:(void(^)(NSMenu *))block;
+
 @end

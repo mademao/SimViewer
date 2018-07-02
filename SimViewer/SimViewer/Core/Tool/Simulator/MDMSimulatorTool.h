@@ -7,8 +7,7 @@
 //  
 
 #import <Foundation/Foundation.h>
-
-@class MDMSimulatorGroupModel;
+#import "MDMSimulatorGroupModel.h"
 
 @interface MDMSimulatorTool : NSObject
 

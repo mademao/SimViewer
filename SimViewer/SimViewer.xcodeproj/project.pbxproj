@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		410C8B1F20EA45C5001B2E3D /* MDMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C8B1E20EA45C5001B2E3D /* MDMMenuItem.m */; };
 		41BC456720E4FD0100C7F905 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC456620E4FD0100C7F905 /* AppDelegate.m */; };
 		41BC456C20E4FD0200C7F905 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41BC456B20E4FD0200C7F905 /* Assets.xcassets */; };
 		41BC457220E4FD0200C7F905 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC457120E4FD0200C7F905 /* main.m */; };
@@ -21,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		410C8B1920EA3FE1001B2E3D /* MDMThreadTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMThreadTool.h; sourceTree = "<group>"; };
+		410C8B1D20EA45C5001B2E3D /* MDMMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMMenuItem.h; sourceTree = "<group>"; };
+		410C8B1E20EA45C5001B2E3D /* MDMMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMMenuItem.m; sourceTree = "<group>"; };
 		41BC456220E4FD0100C7F905 /* SimViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41BC456520E4FD0100C7F905 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		41BC456620E4FD0100C7F905 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -57,6 +61,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		410C8B1820EA3FD6001B2E3D /* Thread */ = {
+			isa = PBXGroup;
+			children = (
+				410C8B1920EA3FE1001B2E3D /* MDMThreadTool.h */,
+			);
+			path = Thread;
+			sourceTree = "<group>";
+		};
+		410C8B1C20EA459A001B2E3D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				410C8B1D20EA45C5001B2E3D /* MDMMenuItem.h */,
+				410C8B1E20EA45C5001B2E3D /* MDMMenuItem.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		41BC455920E4FD0100C7F905 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +117,7 @@
 		41BC45E520E6228700C7F905 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				410C8B1C20EA459A001B2E3D /* View */,
 				41BC45FF20E63EFA00C7F905 /* Model */,
 				41BC45E720E6234D00C7F905 /* Tool */,
 				41BC456520E4FD0100C7F905 /* AppDelegate.h */,
@@ -107,6 +129,7 @@
 		41BC45E720E6234D00C7F905 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				410C8B1820EA3FD6001B2E3D /* Thread */,
 				41BC460920E663DF00C7F905 /* Menu */,
 				41BC45FB20E63E2600C7F905 /* Simulator */,
 				41BC45F120E63DBF00C7F905 /* Task */,
@@ -244,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41BC45F920E63DBF00C7F905 /* MDMXcrunTool.m in Sources */,
+				410C8B1F20EA45C5001B2E3D /* MDMMenuItem.m in Sources */,
 				41BC45FA20E63DBF00C7F905 /* MDMStringFormatTool.m in Sources */,
 				41BC460820E654DE00C7F905 /* MDMSimulatorGroupModel.m in Sources */,
 				41BC45F820E63DBF00C7F905 /* MDMTaskTool.m in Sources */,
