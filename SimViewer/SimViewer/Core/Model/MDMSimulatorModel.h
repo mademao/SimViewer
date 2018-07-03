@@ -7,6 +7,7 @@
 //
 
 #import "MDMBaseModel.h"
+#import "MDMAppModel.h"
 
 @interface MDMSimulatorModel : MDMBaseModel
 
@@ -18,5 +19,8 @@
 
 ///是否在运行
 @property (nonatomic, assign) BOOL booted;
+
+///当前模拟器下的App
+@property (nonatomic, copy) NSArray<MDMAppModel *> *appArray;
 
 @end

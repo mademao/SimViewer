@@ -44,6 +44,26 @@
     return [simulatorGroupArray copy];
 }
 
+///获取模拟器下的APP
++ (NSArray<MDMAppModel *> *)getAllAppWithSimulatorModel:(MDMSimulatorModel *)simulatorModel {
+    NSMutableArray<MDMAppModel *> *appsArray = [NSMutableArray array];
+    //拼接模拟器下Application目录路径
+    NSString *applicationPath = [NSString stringWithFormat:@"%@/Library/Developer/CoreSimulator/Devices/%@/data/Containers/Data/Application", [self p_getHomeDirectory], simulatorModel.identifier];
+    
+    //获取模拟器下所有App所处的文件夹
+    NSArray<NSURL *> *appPathArray = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL fileURLWithPath:applicationPath] includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsSubdirectoryDescendants | NSDirectoryEnumerationSkipsHiddenFiles error:nil];
+    
+    for (NSURL *appPath in appPathArray) {
+        //生成对应App
+        MDMAppModel *appModel = [self p_createAppModelWithAppPath:appPath.absoluteString];
+        if (appModel) {
+            [appsArray addObject:appModel];
+        }
+    }
+    
+    return [appsArray copy];
+}
+
 
 #pragma mark - private methods
 
@@ -60,12 +80,17 @@
         MDMSimulatorGroupModel *simulatorGroupModel = [[MDMSimulatorGroupModel alloc] init];
         simulatorGroupModel.os = osKey;
         
-        //接卸分类中包含的模拟器
+        //解析分类中包含的模拟器
         NSArray<NSString *> *simulatorStringArray = [simulatorDic objectForKey:osKey];
         NSMutableArray *simulatorArray = [NSMutableArray arrayWithCapacity:simulatorStringArray.count];
         for (NSString *string in simulatorStringArray) {
             MDMSimulatorModel *simulatorModel = [self p_createSimulatorModelWithString:string];
-            if (simulatorModel) [simulatorArray addObject:simulatorModel];
+            if (simulatorModel) {
+                //读取模拟器中所有App
+                simulatorModel.appArray = [self getAllAppWithSimulatorModel:simulatorModel];
+                
+                [simulatorArray addObject:simulatorModel];
+            }
         }
         simulatorGroupModel.simulatorArray = [simulatorArray copy];
         
@@ -97,6 +122,34 @@
     simulatorModel.booted = [[stringArray[2] lowercaseString] containsString:@"booted"];
     
     return simulatorModel;
+}
+
+///获取机器的顶层目录
++ (NSString *)p_getHomeDirectory {
+    NSString *homeDirectory = NSHomeDirectory();
+    //分割路径
+    NSArray<NSString *> *pathArray = [homeDirectory componentsSeparatedByString:@"/"];
+    NSString *realHomeDirectory;
+    if (pathArray.count > 2) {
+        realHomeDirectory = [NSString stringWithFormat:@"/%@/%@", [pathArray objectAtIndex:1], [pathArray objectAtIndex:2]];
+    }
+    return realHomeDirectory;
+}
+
+///根据App所在目录生成App信息
++ (MDMAppModel *)p_createAppModelWithAppPath:(NSString *)appPath {
+    MDMAppModel *appModel = nil;
+    
+    //获取App目录下的所有文件
+    NSArray<NSURL *> *filePathArray = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL URLWithString:appPath] includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsSubdirectoryDescendants | NSDirectoryEnumerationSkipsHiddenFiles error:nil];
+    for (NSURL *filePath in filePathArray) {
+        //进入.app文件中读取Info.plist
+        if ([filePath.absoluteString hasSuffix:@".app"]) {
+            NSURL *appInfoPlistPath = [filePath URLByAppendingPathComponent:@"Info.plist"];
+            NSDictionary *infoDict = [NSDictionary dictionaryWithContentsOfURL:appInfoPlistPath];
+        }
+    }
+    return appModel;
 }
 
 @end

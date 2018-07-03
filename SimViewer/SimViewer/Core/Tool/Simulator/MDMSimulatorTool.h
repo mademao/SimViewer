@@ -18,4 +18,9 @@
  */
 + (NSArray<MDMSimulatorGroupModel *> *)getAllSimulatorGroupWithBooted:(BOOL)booted;
 
+/**
+ 获取模拟器下的APP
+ */
++ (NSArray<MDMAppModel *> *)getAllAppWithSimulatorModel:(MDMSimulatorModel *)simulatorModel;
+
 @end
