@@ -9,6 +9,7 @@
 #import "MDMBaseModel.h"
 #import "MDMMenuSimulatorItem.h"
 #import "MDMMenuActionItem.h"
+#import "MDMMenuAppItem.h"
 #import <Cocoa/Cocoa.h>
 
 @interface MDMMenuTool : MDMBaseModel

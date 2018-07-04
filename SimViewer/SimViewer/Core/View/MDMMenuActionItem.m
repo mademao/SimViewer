@@ -10,20 +10,4 @@
 
 @implementation MDMMenuActionItem
 
-- (instancetype)init {
-    NSAssert(YES, @"please use -initWithSimulatorModel: or +menuActionItemWithSimulatorModel:");
-    return nil;
-}
-
-- (instancetype)initWithSimulatorModel:(MDMSimulatorModel *)simulatorModel {
-    if (self = [super init]) {
-        self.simulatorModel = simulatorModel;
-    }
-    return self;
-}
-
-+ (instancetype)menuActionItemWithSimulatorModel:(MDMSimulatorModel *)simlatorModel {
-    return [[self alloc] initWithSimulatorModel:simlatorModel];
-}
-
 @end

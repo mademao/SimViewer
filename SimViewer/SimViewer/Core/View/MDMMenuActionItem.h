@@ -7,14 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "MDMSimulatorModel.h"
 
 @interface MDMMenuActionItem : NSMenuItem
-
-///当前条目所属的SimulatorModel
-@property (nonnull, nonatomic, strong) MDMSimulatorModel *simulatorModel;
-
-- (instancetype)initWithSimulatorModel:(MDMSimulatorModel *)simulatorModel;
-+ (instancetype)menuActionItemWithSimulatorModel:(MDMSimulatorModel *)simlatorModel;
 
 @end

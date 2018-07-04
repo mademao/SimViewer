@@ -18,6 +18,7 @@
 - (instancetype)initWithSimulatorModel:(MDMSimulatorModel *)simulatorModel {
     if (self = [super init]) {
         self.simulatorModel = simulatorModel;
+        self.title = [NSString stringWithFormat:@"%@ (%@)", simulatorModel.name, simulatorModel.ownSimulatorGroupModel.os];
     }
     return self;
 }

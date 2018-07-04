@@ -41,8 +41,8 @@ static MDMMenuTool *tool = nil;
         [simulatorGroupModel.simulatorArray enumerateObjectsUsingBlock:^(MDMSimulatorModel * _Nonnull simulatorModel, NSUInteger idx, BOOL * _Nonnull stop) {
             
             menuSimulatorItem = [[MDMMenuSimulatorItem alloc] initWithSimulatorModel:simulatorModel];
-            menuSimulatorItem.title = [NSString stringWithFormat:@"%@ (%@)", simulatorModel.name, simulatorGroupModel.os];
             
+            [self p_addAppItemForMenuSimulatorItem:menuSimulatorItem];
             
             [menu addItem:menuSimulatorItem];
         }];
@@ -67,20 +67,19 @@ static MDMMenuTool *tool = nil;
 
 #pragma mark - private methods
 
-///为MDMMenuSimulatorItem增加操作
-- (void)p_addActionItemForMenuSimulatorItem:(MDMMenuSimulatorItem *)menuSimulatorItem {
+///为MDMMenuSimulatorItem增加AppItem条目
+- (void)p_addAppItemForMenuSimulatorItem:(MDMMenuSimulatorItem *)menuSimulatorItem {
     menuSimulatorItem.submenu = [[NSMenu alloc] init];
     
-    //临时操作条目变量
-    MDMMenuActionItem *menuActionItem = nil;
+    //临时AppItem条目变量
+    MDMMenuAppItem *menuAppItem = nil;
     
-    //增加Finder打开沙盒
-    menuActionItem = [[MDMMenuActionItem alloc] initWithSimulatorModel:menuSimulatorItem.simulatorModel];
-    menuActionItem.title = @"Open sandbox in Finder";
-    menuActionItem.target = self;
-    menuActionItem.action = @selector(openSandboxInFinder:);
-    menuActionItem.keyEquivalent = @"F";
-    [menuSimulatorItem.submenu addItem:menuActionItem];
+    //遍历增加AppItem
+    for (MDMAppModel *appModel in menuSimulatorItem.simulatorModel.appArray) {
+        menuAppItem = [[MDMMenuAppItem alloc] initWithAppModel:appModel];
+        
+        [menuSimulatorItem.submenu addItem:menuAppItem];
+    }
 }
 
 static dispatch_queue_t queue = NULL;
