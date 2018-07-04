@@ -11,12 +11,10 @@
 
 @interface MDMMenuSimulatorItem : NSMenuItem
 
-///当前条目所属的SimulatorGroupModel
-@property (nonnull, nonatomic, strong) MDMSimulatorGroupModel *simulatorGroupModel;
 ///当前条目所属的SimulatorModel
 @property (nonnull, nonatomic, strong) MDMSimulatorModel *simulatorModel;
 
-- (instancetype)initWithSimulatorGroupModel:(MDMSimulatorGroupModel *)simulatorGroupModel simulatorModel:(MDMSimulatorModel *)simulatorModel;
-+ (instancetype)menuSimulatorItemWithSimulatorGroupModel:(MDMSimulatorGroupModel *)simlatorGroupModel simulatorModel:(MDMSimulatorModel *)simulatorModel;
+- (instancetype)initWithSimulatorModel:(MDMSimulatorModel *)simulatorModel;
++ (instancetype)menuSimulatorItemWithSimulatorModel:(MDMSimulatorModel *)simulatorModel;
 
 @end
