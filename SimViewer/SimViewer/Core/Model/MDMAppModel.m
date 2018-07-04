@@ -10,4 +10,21 @@
 
 @implementation MDMAppModel
 
+- (NSString *)displayName {
+    if (_displayName == nil || [_displayName isEqualToString:@""]) {
+        return self.bundleName;
+    }
+    return _displayName;
+}
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"CFBundleDisplayName"]) {
+        self.displayName = value;
+    } else if ([key isEqualToString:@"CFBundleName"]) {
+        self.bundleName = value;
+    } else if ([key isEqualToString:@"CFBundleIdentifier"]) {
+        self.bundleIdentifier = value;
+    }
+}
+
 @end

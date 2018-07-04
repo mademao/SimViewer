@@ -21,7 +21,7 @@
     }
     
     //筛选启动的模拟器
-    NSMutableArray *simulatorGroupArray = [NSMutableArray array];
+    NSMutableArray<MDMSimulatorGroupModel *> *simulatorGroupArray = [NSMutableArray array];
     
     for (MDMSimulatorGroupModel *simulatorGroupModel in allSimulatorGroupArray) {
         NSMutableArray *bootedSimulatorArray = [NSMutableArray arrayWithCapacity:simulatorGroupModel.simulatorArray.count];
@@ -48,7 +48,7 @@
 + (NSArray<MDMAppModel *> *)getAllAppWithSimulatorModel:(MDMSimulatorModel *)simulatorModel {
     NSMutableArray<MDMAppModel *> *appsArray = [NSMutableArray array];
     //拼接模拟器下Application目录路径
-    NSString *applicationPath = [NSString stringWithFormat:@"%@/Library/Developer/CoreSimulator/Devices/%@/data/Containers/Data/Application", [self p_getHomeDirectory], simulatorModel.identifier];
+    NSString *applicationPath = [NSString stringWithFormat:@"%@/Library/Developer/CoreSimulator/Devices/%@/data/Containers/Bundle/Application", [self p_getHomeDirectory], simulatorModel.identifier];
     
     //获取模拟器下所有App所处的文件夹
     NSArray<NSURL *> *appPathArray = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL fileURLWithPath:applicationPath] includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsSubdirectoryDescendants | NSDirectoryEnumerationSkipsHiddenFiles error:nil];
@@ -144,9 +144,13 @@
     NSArray<NSURL *> *filePathArray = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL URLWithString:appPath] includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsSubdirectoryDescendants | NSDirectoryEnumerationSkipsHiddenFiles error:nil];
     for (NSURL *filePath in filePathArray) {
         //进入.app文件中读取Info.plist
-        if ([filePath.absoluteString hasSuffix:@".app"]) {
+        if ([filePath.absoluteString hasSuffix:@".app"] ||
+            [filePath.absoluteString hasSuffix:@".app/"]) {
             NSURL *appInfoPlistPath = [filePath URLByAppendingPathComponent:@"Info.plist"];
             NSDictionary *infoDict = [NSDictionary dictionaryWithContentsOfURL:appInfoPlistPath];
+            
+            appModel = [[MDMAppModel alloc] init];
+            [appModel setValuesForKeysWithDictionary:infoDict];
         }
     }
     return appModel;
