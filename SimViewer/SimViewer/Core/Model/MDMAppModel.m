@@ -10,6 +10,22 @@
 
 @implementation MDMAppModel
 
+- (instancetype)init {
+    NSAssert(NO, @"please use -initWithOwnSimulatorModel: or +appModelWithOwnSimulatorModel:");
+    return nil;
+}
+
+- (instancetype)initWithOwnSimulatorModel:(MDMSimulatorModel *)ownSimulatorModel {
+    if (self = [super init]) {
+        self.ownSimulatorModel = ownSimulatorModel;
+    }
+    return self;
+}
+
++ (instancetype)appModelWithOwnSimulatorModel:(MDMSimulatorModel *)ownSimulatorModel {
+    return [[self alloc] initWithOwnSimulatorModel:ownSimulatorModel];
+}
+
 - (NSString *)displayName {
     if (_displayName == nil || [_displayName isEqualToString:@""]) {
         return self.bundleName;

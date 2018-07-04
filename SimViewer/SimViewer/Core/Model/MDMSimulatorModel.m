@@ -10,4 +10,20 @@
 
 @implementation MDMSimulatorModel
 
+- (instancetype)init {
+    NSAssert(NO, @"please use -initWithOwnSimulatorGroupModel: or +simulatorModelWithOwnSimulatorGroupModel:");
+    return nil;
+}
+
+- (instancetype)initWithOwnSimulatorGroupModel:(MDMSimulatorGroupModel *)ownSimulatorGroupModel {
+    if (self = [super init]) {
+        self.ownSimulatorGroupModel = ownSimulatorGroupModel;
+    }
+    return self;
+}
+
++ (instancetype)simulatorModelWithOwnSimulatorGroupModel:(MDMSimulatorGroupModel *)ownSimulatorGroupModel {
+    return [[self alloc] initWithOwnSimulatorGroupModel:ownSimulatorGroupModel];
+}
+
 @end

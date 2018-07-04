@@ -40,7 +40,7 @@ static MDMMenuTool *tool = nil;
         //遍历模拟器
         [simulatorGroupModel.simulatorArray enumerateObjectsUsingBlock:^(MDMSimulatorModel * _Nonnull simulatorModel, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            menuSimulatorItem = [[MDMMenuSimulatorItem alloc] initWithSimulatorGroupModel:simulatorGroupModel simulatorModel:simulatorModel];
+            menuSimulatorItem = [[MDMMenuSimulatorItem alloc] initWithSimulatorModel:simulatorModel];
             menuSimulatorItem.title = [NSString stringWithFormat:@"%@ (%@)", simulatorModel.name, simulatorGroupModel.os];
             
             

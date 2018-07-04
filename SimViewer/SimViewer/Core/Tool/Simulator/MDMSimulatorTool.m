@@ -31,13 +31,11 @@
             }
         }
         
-        //如果分组存在启动的模拟器，则构建并返回
+        //如果分组存在启动的模拟器，则重新整理模拟器数组并返回
         if (bootedSimulatorArray.count > 0) {
-            MDMSimulatorGroupModel *newSimulatorGroupModel = [[MDMSimulatorGroupModel alloc] init];
-            newSimulatorGroupModel.os = simulatorGroupModel.os;
-            newSimulatorGroupModel.simulatorArray = [bootedSimulatorArray copy];
+            simulatorGroupModel.simulatorArray = [bootedSimulatorArray copy];
             
-            [simulatorGroupArray addObject:newSimulatorGroupModel];
+            [simulatorGroupArray addObject:simulatorGroupModel];
         }
     }
     
@@ -55,7 +53,7 @@
     
     for (NSURL *appPath in appPathArray) {
         //生成对应App
-        MDMAppModel *appModel = [self p_createAppModelWithAppPath:appPath.absoluteString];
+        MDMAppModel *appModel = [self p_createAppModelWithAppPath:appPath.absoluteString ownSimulatorModel:simulatorModel];
         if (appModel) {
             [appsArray addObject:appModel];
         }
@@ -84,7 +82,7 @@
         NSArray<NSString *> *simulatorStringArray = [simulatorDic objectForKey:osKey];
         NSMutableArray *simulatorArray = [NSMutableArray arrayWithCapacity:simulatorStringArray.count];
         for (NSString *string in simulatorStringArray) {
-            MDMSimulatorModel *simulatorModel = [self p_createSimulatorModelWithString:string];
+            MDMSimulatorModel *simulatorModel = [self p_createSimulatorModelWithString:string ownSimulatorGroupModel:simulatorGroupModel];
             if (simulatorModel) {
                 //读取模拟器中所有App
                 simulatorModel.appArray = [self getAllAppWithSimulatorModel:simulatorModel];
@@ -110,13 +108,13 @@
  根据字符串解析出对应的模拟器模型
  iPhone 5s (7C1AAA12-7A9E-4077-B2B5-632C047C1F11) (Shutdown)
  */
-+ (MDMSimulatorModel *)p_createSimulatorModelWithString:(NSString *)string {
++ (MDMSimulatorModel *)p_createSimulatorModelWithString:(NSString *)string ownSimulatorGroupModel:(MDMSimulatorGroupModel *)ownSimulatorGroupModel {
     NSArray *stringArray = [string componentsSeparatedByString:@" ("];
     if (stringArray.count < 3) {
         return nil;
     }
     
-    MDMSimulatorModel *simulatorModel = [[MDMSimulatorModel alloc] init];
+    MDMSimulatorModel *simulatorModel = [[MDMSimulatorModel alloc] initWithOwnSimulatorGroupModel:ownSimulatorGroupModel];
     simulatorModel.name = [stringArray[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     simulatorModel.identifier = [stringArray[1] stringByReplacingOccurrencesOfString:@")" withString:@""];
     simulatorModel.booted = [[stringArray[2] lowercaseString] containsString:@"booted"];
@@ -137,7 +135,7 @@
 }
 
 ///根据App所在目录生成App信息
-+ (MDMAppModel *)p_createAppModelWithAppPath:(NSString *)appPath {
++ (MDMAppModel *)p_createAppModelWithAppPath:(NSString *)appPath ownSimulatorModel:(MDMSimulatorModel *)ownSimulatorModel {
     MDMAppModel *appModel = nil;
     
     //获取App目录下的所有文件
@@ -149,7 +147,7 @@
             NSURL *appInfoPlistPath = [filePath URLByAppendingPathComponent:@"Info.plist"];
             NSDictionary *infoDict = [NSDictionary dictionaryWithContentsOfURL:appInfoPlistPath];
             
-            appModel = [[MDMAppModel alloc] init];
+            appModel = [[MDMAppModel alloc] initWithOwnSimulatorModel:ownSimulatorModel];
             [appModel setValuesForKeysWithDictionary:infoDict];
         }
     }

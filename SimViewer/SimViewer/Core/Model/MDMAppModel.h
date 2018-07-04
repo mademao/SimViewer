@@ -8,7 +8,12 @@
 
 #import "MDMBaseModel.h"
 
+@class MDMSimulatorModel;
+
 @interface MDMAppModel : MDMBaseModel
+
+///所属模拟器
+@property (nonatomic, weak) MDMSimulatorModel *ownSimulatorModel;
 
 ///bundleIdentifier
 @property (nonatomic, copy) NSString *bundleIdentifier;
@@ -18,5 +23,8 @@
 
 ///bundleName
 @property (nonatomic, copy) NSString *bundleName;
+
+- (instancetype)initWithOwnSimulatorModel:(MDMSimulatorModel *)ownSimulatorModel;
++ (instancetype)appModelWithOwnSimulatorModel:(MDMSimulatorModel *)ownSimulatorModel;
 
 @end

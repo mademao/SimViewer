@@ -9,7 +9,12 @@
 #import "MDMBaseModel.h"
 #import "MDMAppModel.h"
 
+@class MDMSimulatorGroupModel;
+
 @interface MDMSimulatorModel : MDMBaseModel
+
+///所属模拟器分类
+@property (nonatomic, weak) MDMSimulatorGroupModel *ownSimulatorGroupModel;
 
 ///名称
 @property (nonatomic, copy) NSString *name;
@@ -22,5 +27,8 @@
 
 ///当前模拟器下的App
 @property (nonatomic, copy) NSArray<MDMAppModel *> *appArray;
+
+- (instancetype)initWithOwnSimulatorGroupModel:(MDMSimulatorGroupModel *)ownSimulatorGroupModel;
++ (instancetype)simulatorModelWithOwnSimulatorGroupModel:(MDMSimulatorGroupModel *)ownSimulatorGroupModel;
 
 @end
