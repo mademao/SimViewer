@@ -78,8 +78,26 @@ static MDMMenuTool *tool = nil;
     for (MDMAppModel *appModel in menuSimulatorItem.simulatorModel.appArray) {
         menuAppItem = [[MDMMenuAppItem alloc] initWithAppModel:appModel];
         
+        [self p_addActionItemForMenuAppItem:menuAppItem];
+        
         [menuSimulatorItem.submenu addItem:menuAppItem];
     }
+}
+
+///为MDMMenuAppItem增加MDMMenuActionIte条目
+- (void)p_addActionItemForMenuAppItem:(MDMMenuAppItem *)menuAppItem {
+    menuAppItem.submenu = [[NSMenu alloc] init];
+    
+    //临时ActionItem条目变量
+    MDMMenuActionItem *menuActionItem = nil;
+    
+    //增加在Finder中打开沙盒
+    menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
+    menuActionItem.title = @"在Finder中打开";
+    menuActionItem.keyEquivalent = @"F";
+    menuActionItem.target = self;
+    menuActionItem.action = @selector(openSandboxInFinder:);
+    [menuAppItem.submenu addItem:menuActionItem];
 }
 
 static dispatch_queue_t queue = NULL;
@@ -96,7 +114,7 @@ static dispatch_queue_t queue = NULL;
 #pragma mark - MenuActionItem action
 
 - (void)openSandboxInFinder:(MDMMenuActionItem *)menuActionItem {
-    
+    NSLog(@"%@", [menuActionItem class]);
 }
 
 @end
