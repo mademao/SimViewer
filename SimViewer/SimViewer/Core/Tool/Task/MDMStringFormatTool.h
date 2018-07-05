@@ -17,4 +17,11 @@
  */
 + (NSDictionary<NSString *, NSArray<NSString *> *> *)analyzeSimulatorInfoString:(NSString *)string;
 
+/**
+ 解析app信息字符串
+ @param string app信息字符串
+ @return 解析结果
+ */
++ (NSDictionary<NSString *, NSString *> *)analyzeAppInfoString:(NSString *)string;
+
 @end

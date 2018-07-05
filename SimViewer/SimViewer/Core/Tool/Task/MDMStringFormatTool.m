@@ -68,4 +68,59 @@
     return simulatorInfoDic;
 }
 
+/**
+ {
+ ApplicationType = User;
+ Bundle = "file:///Users/mademao/Library/Developer/CoreSimulator/Devices/B19ADE76-9791-46C3-85D0-4BC0F3A90740/data/Containers/Bundle/Application/C2880E7A-FBEE-4358-AC09-4D07D29AD341/Test.app";
+ BundleContainer = "file:///Users/mademao/Library/Developer/CoreSimulator/Devices/B19ADE76-9791-46C3-85D0-4BC0F3A90740/data/Containers/Bundle/Application/C2880E7A-FBEE-4358-AC09-4D07D29AD341";
+ CFBundleDisplayName = Test;
+ CFBundleExecutable = Test;
+ CFBundleIdentifier = "-23.Test";
+ CFBundleName = Test;
+ CFBundleVersion = 1;
+ DataContainer = "file:///Users/mademao/Library/Developer/CoreSimulator/Devices/B19ADE76-9791-46C3-85D0-4BC0F3A90740/data/Containers/Data/Application/3676FF95-0FF7-4690-9FEF-6EA6CDE557E1";
+ GroupContainers =     {
+ };
+ Path = "/Users/mademao/Library/Developer/CoreSimulator/Devices/B19ADE76-9791-46C3-85D0-4BC0F3A90740/data/Containers/Bundle/Application/C2880E7A-FBEE-4358-AC09-4D07D29AD341/Test.app";
+ SBAppTags =     (
+ );
+ }
+ */
++ (NSDictionary<NSString *, NSString *> *)analyzeAppInfoString:(NSString *)string {
+    //TODO:暂时没有解析字符串中的字典与数组
+    
+    NSMutableDictionary<NSString *, NSString *> *result = [NSMutableDictionary dictionary];
+    
+    //去除\n
+    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    
+    //去除\"
+    string = [string stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+    
+    //去除空格
+    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    //去除前后{}
+    if ([string hasPrefix:@"{"]) {
+        string = [string substringFromIndex:1];
+    }
+    if ([string hasSuffix:@"}"]) {
+        string = [string substringToIndex:string.length - 1];
+    }
+    
+    //根据 ; 拆分字符串
+    NSArray<NSString *> *componentResult = [string componentsSeparatedByString:@";"];
+    
+    for (NSString *subString in componentResult) {
+        if (subString.length > 0) {
+            NSArray<NSString *> * subComponentResult = [subString componentsSeparatedByString:@"="];
+            if (subComponentResult.count > 1) {
+                [result setObject:subComponentResult[1] forKey:subComponentResult[0]];
+            }
+        }
+    }
+    
+    return result;
+}
+
 @end

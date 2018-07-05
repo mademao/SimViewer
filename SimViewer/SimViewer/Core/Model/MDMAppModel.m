@@ -7,6 +7,8 @@
 //
 
 #import "MDMAppModel.h"
+#import "MDMXcrunTool.h"
+#import "MDMSimulatorModel.h"
 
 @implementation MDMAppModel
 
@@ -31,6 +33,13 @@
         return self.bundleName;
     }
     return _displayName;
+}
+
+- (NSDictionary *)otherInfo {
+    if (_otherInfo == nil) {
+        _otherInfo = [MDMXcrunTool getSandboxPathWithSimulatorIdentifier:self.ownSimulatorModel.identifier appIdentifier:self.bundleIdentifier];
+    }
+    return _otherInfo;
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {

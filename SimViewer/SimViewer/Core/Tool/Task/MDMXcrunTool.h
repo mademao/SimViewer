@@ -16,4 +16,13 @@
  */
 + (NSDictionary<NSString *, NSArray<NSString *> *> *)getAllSimulatorInfo;
 
+/**
+ 获取App信息
+ @param simulatorIdentifier 所属模拟器identifier
+ @param appIdentifier app的identifier
+ 
+ @return app信息
+ */
++ (NSDictionary<NSString *, NSString *> *)getSandboxPathWithSimulatorIdentifier:(NSString *)simulatorIdentifier appIdentifier:(NSString *)appIdentifier;
+
 @end

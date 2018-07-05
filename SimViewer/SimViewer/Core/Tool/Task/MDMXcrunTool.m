@@ -35,4 +35,20 @@ static NSString * const kMDMXcrunSimctlArgument = @"simctl";
     return analyzeResult;
 }
 
+///获取App沙盒路径
++ (NSDictionary<NSString *, NSString *> *)getSandboxPathWithSimulatorIdentifier:(NSString *)simulatorIdentifier appIdentifier:(NSString *)appIdentifier {
+    if (simulatorIdentifier == nil || [simulatorIdentifier isEqualToString:@""] ||
+        appIdentifier == nil || [appIdentifier isEqualToString:@""]) {
+        return nil;
+    }
+    
+    //xcrun simctl appinfo simidentifier appidentifier
+    NSString *taskResult = [MDMTaskTool excute:kMDMXcrunCommandPath arguments:@[kMDMXcrunSimctlArgument, @"appinfo", simulatorIdentifier, appIdentifier]];
+    
+    //解析字符串
+    NSDictionary *analyzeResult = [MDMStringFormatTool analyzeAppInfoString:taskResult];
+    
+    return analyzeResult;
+}
+
 @end

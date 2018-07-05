@@ -24,6 +24,9 @@
 ///bundleName
 @property (nonatomic, copy) NSString *bundleName;
 
+///其余信息
+@property (nonatomic, copy) NSDictionary *otherInfo;
+
 - (instancetype)initWithOwnSimulatorModel:(MDMSimulatorModel *)ownSimulatorModel;
 + (instancetype)appModelWithOwnSimulatorModel:(MDMSimulatorModel *)ownSimulatorModel;
 

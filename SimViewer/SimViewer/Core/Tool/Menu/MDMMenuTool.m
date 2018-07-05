@@ -114,7 +114,8 @@ static dispatch_queue_t queue = NULL;
 #pragma mark - MenuActionItem action
 
 - (void)openSandboxInFinder:(MDMMenuActionItem *)menuActionItem {
-    NSLog(@"%@", [menuActionItem class]);
+    NSLog(@"%@", menuActionItem.appItem.appModel.otherInfo);
+    [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[[NSURL URLWithString:[menuActionItem.appItem.appModel.otherInfo objectForKey:@"DataContainer"]]]];
 }
 
 @end
