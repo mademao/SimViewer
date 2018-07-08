@@ -6,6 +6,7 @@
 //  Copyright © 2018年 sogou. All rights reserved.
 //
 
+#import <Cocoa/Cocoa.h>
 #import "MDMBaseModel.h"
 
 @class MDMSimulatorModel;
@@ -23,6 +24,9 @@
 
 ///bundleName
 @property (nonatomic, copy) NSString *bundleName;
+
+///app图标
+@property (nonatomic, strong) NSImage *appIconImage;
 
 ///其余信息
 @property (nonatomic, copy) NSDictionary *otherInfo;

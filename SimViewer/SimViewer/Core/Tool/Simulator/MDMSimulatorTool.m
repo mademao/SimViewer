@@ -149,6 +149,33 @@
             
             appModel = [[MDMAppModel alloc] initWithOwnSimulatorModel:ownSimulatorModel];
             [appModel setValuesForKeysWithDictionary:infoDict];
+            
+            //搜寻app icon位置
+            NSDictionary *bundleIconsDic = [infoDict valueForKey:@"CFBundleIcons"];
+            if (bundleIconsDic) {
+                NSDictionary *primaryIconDic = [bundleIconsDic valueForKey:@"CFBundlePrimaryIcon"];
+                if (primaryIconDic) {
+                    NSArray *iconFilesArray = [primaryIconDic valueForKey:@"CFBundleIconFiles"];
+                    if (iconFilesArray && iconFilesArray.count > 0) {
+                        NSString *iconFileName = iconFilesArray.firstObject;
+                        
+                        //获取.app下所有目录
+                        NSArray<NSURL *> *allAppFilePathArray = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:filePath includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsSubdirectoryDescendants | NSDirectoryEnumerationSkipsHiddenFiles error:nil];
+                        
+                        [allAppFilePathArray enumerateObjectsUsingBlock:^(NSURL * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            if ([obj.absoluteString containsString:[NSString stringWithFormat:@"%@.png", iconFileName]] ||
+                                [obj.absoluteString containsString:[NSString stringWithFormat:@"%@@1x.png", iconFileName]] ||
+                                [obj.absoluteString containsString:[NSString stringWithFormat:@"%@@2x.png", iconFileName]] ||
+                                [obj.absoluteString containsString:[NSString stringWithFormat:@"%@@3x.png", iconFileName]]) {
+                                appModel.appIconImage = [[NSImage alloc] initWithContentsOfURL:obj];
+                                *stop = YES;
+                            }
+                        }];
+                    }
+                }
+            }
+            
+            break;
         }
     }
     return appModel;

@@ -42,6 +42,13 @@
     return _otherInfo;
 }
 
+- (NSImage *)appIconImage {
+    if (!_appIconImage) {
+        _appIconImage = [NSImage imageNamed:@"empty_icon"];
+    }
+    return _appIconImage;
+}
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     if ([key isEqualToString:@"CFBundleDisplayName"]) {
         self.displayName = value;

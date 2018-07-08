@@ -6,7 +6,7 @@
 //  Copyright © 2018年 sogou. All rights reserved.
 //  
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 #import "MDMSimulatorGroupModel.h"
 
 @interface MDMSimulatorTool : NSObject

@@ -8,6 +8,8 @@
 
 #import "MDMMenuAppItem.h"
 
+static CGFloat const MDMMenuAppItemIconLength = 20.0;
+
 @implementation MDMMenuAppItem
 
 - (instancetype)init {
@@ -19,6 +21,8 @@
     if (self = [super init]) {
         self.appModel = appModel;
         self.title = [NSString stringWithFormat:@"%@", appModel.displayName];
+        self.image = appModel.appIconImage;
+        self.image.size = NSMakeSize(MDMMenuAppItemIconLength, MDMMenuAppItemIconLength);
     }
     return self;
 }
