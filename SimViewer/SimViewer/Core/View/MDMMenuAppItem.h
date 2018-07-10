@@ -14,7 +14,7 @@
 ///当前条目所属的AppModel
 @property (nonnull, nonatomic, strong) MDMAppModel *appModel;
 
-- (instancetype)initWithAppModel:(MDMAppModel *)appModel;
-+ (instancetype)menuAppItemWithAppModel:(MDMAppModel *)appModel;
+- (instancetype)initWithAppModel:(MDMAppModel *)appModel showSimulatorInfo:(BOOL)showSimulatorInfo;
++ (instancetype)menuAppItemWithAppModel:(MDMAppModel *)appModel showSimulatorInfo:(BOOL)showSimulatorInfo;
 
 @end

@@ -67,7 +67,7 @@ static MDMMenuTool *tool = nil;
     
     //遍历增加AppItem
     for (MDMAppModel *appModel in recentAppModelArray) {
-        menuAppItem = [[MDMMenuAppItem alloc] initWithAppModel:appModel];
+        menuAppItem = [[MDMMenuAppItem alloc] initWithAppModel:appModel showSimulatorInfo:YES];
         
         [self p_addActionItemForMenuAppItem:menuAppItem];
         
@@ -109,7 +109,7 @@ static MDMMenuTool *tool = nil;
     
     //遍历增加AppItem
     for (MDMAppModel *appModel in menuSimulatorItem.simulatorModel.appArray) {
-        menuAppItem = [[MDMMenuAppItem alloc] initWithAppModel:appModel];
+        menuAppItem = [[MDMMenuAppItem alloc] initWithAppModel:appModel showSimulatorInfo:NO];
         
         [self p_addActionItemForMenuAppItem:menuAppItem];
         
