@@ -28,6 +28,9 @@
 ///app图标
 @property (nonatomic, strong) NSImage *appIconImage;
 
+///最近修改时间
+@property (nonatomic, assign) NSTimeInterval modifyDate;
+
 ///其余信息
 @property (nonatomic, copy) NSDictionary *otherInfo;
 

@@ -155,6 +155,10 @@
             appModel = [[MDMAppModel alloc] initWithOwnSimulatorModel:ownSimulatorModel];
             [appModel setValuesForKeysWithDictionary:infoDict];
             
+            id modifyDate;
+            [[NSURL URLWithString:appPath] getResourceValue:&modifyDate forKey:NSURLContentModificationDateKey error:NULL];
+            appModel.modifyDate = [modifyDate timeIntervalSince1970];
+            
             //搜寻app icon位置
             NSDictionary *bundleIconsDic = [infoDict valueForKey:@"CFBundleIcons"];
             if (bundleIconsDic) {

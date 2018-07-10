@@ -31,7 +31,13 @@ static MDMMenuTool *tool = nil;
     NSMenu *menu = [[NSMenu alloc] init];
     
     //获取此刻活动的模拟器
-    NSArray<MDMSimulatorGroupModel *> *allSimulatorGroup = [MDMSimulatorTool getAllSimulatorGroupWithBooted:YES];
+    NSArray<MDMSimulatorGroupModel *> *allSimulatorGroup = [MDMSimulatorTool getAllSimulatorGroupWithBooted:NO];
+    
+    //最近活跃App数组
+    NSMutableArray<MDMAppModel *> *recentAppModelArray = [NSMutableArray arrayWithCapacity:kMDMRecentAppCount];
+    
+    //模拟器操作条目数组
+    NSMutableArray<MDMMenuSimulatorItem *> *menuSimulatorItemArray = [NSMutableArray array];
     
     //临时模拟器操作条目变量
     __block MDMMenuSimulatorItem *menuSimulatorItem = nil;
@@ -46,11 +52,36 @@ static MDMMenuTool *tool = nil;
             
             [self p_addAppItemForMenuSimulatorItem:menuSimulatorItem];
             
-            [menu addItem:menuSimulatorItem];
+            [menuSimulatorItemArray addObject:menuSimulatorItem];
+            
+            //处理是否为最近活跃
+            [simulatorModel.appArray enumerateObjectsUsingBlock:^(MDMAppModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [self p_addAppModel:obj toRecentAppArray:recentAppModelArray];
+            }];
         }];
     }];
     
-    [menu addItem:[NSMenuItem separatorItem]];
+    //生成最近使用App列表
+    //临时AppItem条目变量
+    MDMMenuAppItem *menuAppItem = nil;
+    
+    //遍历增加AppItem
+    for (MDMAppModel *appModel in recentAppModelArray) {
+        menuAppItem = [[MDMMenuAppItem alloc] initWithAppModel:appModel];
+        
+        [self p_addActionItemForMenuAppItem:menuAppItem];
+        
+        [menu addItem:menuAppItem];
+    }
+    
+    if (recentAppModelArray.count > 0) {
+        [menu addItem:[NSMenuItem separatorItem]];
+    }
+    
+    //生成模拟器列表
+    for (MDMMenuSimulatorItem *simulatorItem in menuSimulatorItemArray) {
+        [menu addItem:simulatorItem];
+    }
     
     return menu;
 }
@@ -100,6 +131,24 @@ static MDMMenuTool *tool = nil;
     menuActionItem.target = self;
     menuActionItem.action = @selector(openSandboxInFinder:);
     [menuAppItem.submenu addItem:menuActionItem];
+}
+
+///将AppModel插入最近使用数组中
+- (void)p_addAppModel:(MDMAppModel *)appModel toRecentAppArray:(NSMutableArray<MDMAppModel *> *)recentAppArray {
+    if (recentAppArray == nil) {
+        return;
+    }
+    if (recentAppArray.count == 0) {
+        [recentAppArray addObject:appModel];
+    } else {
+        [recentAppArray addObject:appModel];
+        [recentAppArray sortUsingComparator:^NSComparisonResult(MDMAppModel *obj1, MDMAppModel *obj2) {
+            return obj1.modifyDate <= obj2.modifyDate;
+        }];
+        if (recentAppArray.count > kMDMRecentAppCount) {
+            [recentAppArray removeObjectsInRange:NSMakeRange(kMDMRecentAppCount - 1, recentAppArray.count - kMDMRecentAppCount)];
+        }
+    }
 }
 
 static dispatch_queue_t queue = NULL;
