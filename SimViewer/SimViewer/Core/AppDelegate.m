@@ -30,10 +30,10 @@
     self.statusItem.enabled = YES;
     //设置操作列表
     self.statusItem.menu = [[NSMenu alloc] init];
-    
-    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
-    self.statusItem.menu = [[MDMMenuTool sharedMenuTool] createMenuList];
-    NSLog(@"-->%f", CFAbsoluteTimeGetCurrent() - startTime);
+    NSArray<NSMenuItem *> *itemList = [[MDMMenuTool sharedMenuTool] createMenuList];
+    for (NSMenuItem *menuItem in itemList) {
+        [self.statusItem.menu addItem:menuItem];
+    }
 }
 
 

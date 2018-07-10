@@ -27,8 +27,8 @@ static MDMMenuTool *tool = nil;
 }
 
 ///生成此刻所需展示列表
-- (NSMenu *)createMenuList {
-    NSMenu *menu = [[NSMenu alloc] init];
+- (NSArray<NSMenuItem *> *)createMenuList {
+    NSMutableArray<NSMenuItem *> *itemList = [NSMutableArray array];
     
     //获取此刻活动的模拟器
     NSArray<MDMSimulatorGroupModel *> *allSimulatorGroup = [MDMSimulatorTool getAllSimulatorGroupWithBooted:NO];
@@ -71,28 +71,28 @@ static MDMMenuTool *tool = nil;
         
         [self p_addActionItemForMenuAppItem:menuAppItem];
         
-        [menu addItem:menuAppItem];
+        [itemList addObject:menuAppItem];
     }
     
     if (recentAppModelArray.count > 0) {
-        [menu addItem:[NSMenuItem separatorItem]];
+        [itemList addObject:[NSMenuItem separatorItem]];
     }
     
     //生成模拟器列表
     for (MDMMenuSimulatorItem *simulatorItem in menuSimulatorItemArray) {
-        [menu addItem:simulatorItem];
+        [itemList addObject:simulatorItem];
     }
     
-    return menu;
+    return [itemList copy];
 }
 
 ///异步生成此刻所需展示列表
-- (void)asyncCreateMenuListWithBlock:(void(^)(NSMenu *))block {
+- (void)asyncCreateMenuListWithBlock:(void(^)(NSArray<NSMenuItem *> *))block {
     dispatch_queue_t queue = [self p_defaultQueue];
     dispatch_async(queue, ^{
-        NSMenu *menu = [self createMenuList];
+        NSArray<NSMenuItem *> *menuList = [self createMenuList];
         MDMAsyncOnMainQueue(^{
-            block(menu);
+            block(menuList);
         });
     });
 }

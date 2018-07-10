@@ -24,12 +24,12 @@
  生成此刻所需展示列表
  @return 生成的列表
  */
-- (NSMenu *)createMenuList;
+- (NSArray<NSMenuItem *> *)createMenuList;
 
 /**
  异步生成此刻所需展示列表
  @param block 异步生成回调
  */
-- (void)asyncCreateMenuListWithBlock:(void(^)(NSMenu *))block;
+- (void)asyncCreateMenuListWithBlock:(void(^)(NSArray<NSMenuItem *> *))block;
 
 @end

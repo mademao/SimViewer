@@ -21,7 +21,7 @@ static CGFloat const MDMMenuAppItemIconLength = 20.0;
     if (self = [super init]) {
         self.appModel = appModel;
         if (showSimulatorInfo) {
-            self.title = [NSString stringWithFormat:@"%@-%@ (%@-%@)", @(arc4random() % 10), appModel.displayName, appModel.ownSimulatorModel.name, appModel.ownSimulatorModel.ownSimulatorGroupModel.os];
+            self.title = [NSString stringWithFormat:@"%@ (%@-%@)", appModel.displayName, appModel.ownSimulatorModel.name, appModel.ownSimulatorModel.ownSimulatorGroupModel.os];
         } else {
             self.title = [NSString stringWithFormat:@"%@", appModel.displayName];
         }
