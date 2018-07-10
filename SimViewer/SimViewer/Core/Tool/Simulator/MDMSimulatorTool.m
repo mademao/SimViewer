@@ -59,6 +59,11 @@
         }
     }
     
+    //对App进行排序
+    [appsArray sortUsingComparator:^NSComparisonResult(MDMAppModel *obj1, MDMAppModel *obj2) {
+        return [obj1.displayName compare:obj2.displayName];
+    }];
+    
     return [appsArray copy];
 }
 

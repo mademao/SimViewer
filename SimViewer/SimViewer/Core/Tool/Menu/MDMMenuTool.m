@@ -10,6 +10,8 @@
 #import "MDMThreadTool.h"
 #import "MDMSimulatorTool.h"
 
+static const NSUInteger kMDMRecentAppCount = 5;
+
 @implementation MDMMenuTool
 
 #pragma mark - public methods
@@ -31,7 +33,7 @@ static MDMMenuTool *tool = nil;
     //获取此刻活动的模拟器
     NSArray<MDMSimulatorGroupModel *> *allSimulatorGroup = [MDMSimulatorTool getAllSimulatorGroupWithBooted:YES];
     
-    //临时操作条目变量
+    //临时模拟器操作条目变量
     __block MDMMenuSimulatorItem *menuSimulatorItem = nil;
     
     //遍历模拟器分组
