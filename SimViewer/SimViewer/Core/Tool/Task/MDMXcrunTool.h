@@ -17,12 +17,19 @@
 + (NSDictionary<NSString *, NSArray<NSString *> *> *)getAllSimulatorInfo;
 
 /**
- 获取App信息
+ 获取App沙盒路径
  @param simulatorIdentifier 所属模拟器identifier
  @param appIdentifier app的identifier
  
- @return app信息
+ @return app沙盒路径
  */
-+ (NSDictionary<NSString *, NSString *> *)getSandboxPathWithSimulatorIdentifier:(NSString *)simulatorIdentifier appIdentifier:(NSString *)appIdentifier;
++ (NSString *)getSandboxPathWithSimulatorIdentifier:(NSString *)simulatorIdentifier appIdentifier:(NSString *)appIdentifier;
+
+/**
+ 获取机器的顶层目录
+ 
+ @return 机器顶层目录
+ */
++ (NSString *)getHomeDirectory;
 
 @end

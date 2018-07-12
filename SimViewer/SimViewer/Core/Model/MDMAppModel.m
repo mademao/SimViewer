@@ -35,11 +35,11 @@
     return _displayName;
 }
 
-- (NSDictionary *)otherInfo {
-    if (_otherInfo == nil) {
-        _otherInfo = [MDMXcrunTool getSandboxPathWithSimulatorIdentifier:self.ownSimulatorModel.identifier appIdentifier:self.bundleIdentifier];
+- (NSString *)sandboxPath {
+    if (_sandboxPath == nil) {
+        _sandboxPath = [MDMXcrunTool getSandboxPathWithSimulatorIdentifier:self.ownSimulatorModel.identifier appIdentifier:self.bundleIdentifier];
     }
-    return _otherInfo;
+    return _sandboxPath;
 }
 
 - (NSImage *)appIconImage {

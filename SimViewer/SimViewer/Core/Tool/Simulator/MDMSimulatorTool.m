@@ -45,8 +45,8 @@
 ///获取模拟器下的APP
 + (NSArray<MDMAppModel *> *)getAllAppWithSimulatorModel:(MDMSimulatorModel *)simulatorModel {
     NSMutableArray<MDMAppModel *> *appsArray = [NSMutableArray array];
-    //拼接模拟器下Application目录路径
-    NSString *applicationPath = [NSString stringWithFormat:@"%@/Library/Developer/CoreSimulator/Devices/%@/data/Containers/Bundle/Application", [self p_getHomeDirectory], simulatorModel.identifier];
+    //拼接模拟器下bundle的Application目录路径
+    NSString *applicationPath = [NSString stringWithFormat:@"%@/Library/Developer/CoreSimulator/Devices/%@/data/Containers/Bundle/Application", [MDMXcrunTool getHomeDirectory], simulatorModel.identifier];
     
     //获取模拟器下所有App所处的文件夹
     NSArray<NSURL *> *appPathArray = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL fileURLWithPath:applicationPath] includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsSubdirectoryDescendants | NSDirectoryEnumerationSkipsHiddenFiles error:nil];
@@ -125,18 +125,6 @@
     simulatorModel.booted = [[stringArray[2] lowercaseString] containsString:@"booted"];
     
     return simulatorModel;
-}
-
-///获取机器的顶层目录
-+ (NSString *)p_getHomeDirectory {
-    NSString *homeDirectory = NSHomeDirectory();
-    //分割路径
-    NSArray<NSString *> *pathArray = [homeDirectory componentsSeparatedByString:@"/"];
-    NSString *realHomeDirectory;
-    if (pathArray.count > 2) {
-        realHomeDirectory = [NSString stringWithFormat:@"/%@/%@", [pathArray objectAtIndex:1], [pathArray objectAtIndex:2]];
-    }
-    return realHomeDirectory;
 }
 
 ///根据App所在目录生成App信息

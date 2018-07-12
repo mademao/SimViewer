@@ -165,7 +165,10 @@ static dispatch_queue_t queue = NULL;
 #pragma mark - MenuActionItem action
 
 - (void)openSandboxInFinder:(MDMMenuActionItem *)menuActionItem {
-    [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[[NSURL URLWithString:[menuActionItem.appItem.appModel.otherInfo objectForKey:@"DataContainer"]]]];
+    if (menuActionItem.appItem.appModel.sandboxPath &&
+        ![menuActionItem.appItem.appModel.sandboxPath isEqualToString:@""]) {
+        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[[NSURL URLWithString:menuActionItem.appItem.appModel.sandboxPath]]];
+    }
 }
 
 @end

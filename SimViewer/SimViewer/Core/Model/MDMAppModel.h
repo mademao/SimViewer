@@ -31,8 +31,8 @@
 ///最近修改时间
 @property (nonatomic, assign) NSTimeInterval modifyDate;
 
-///其余信息
-@property (nonatomic, copy) NSDictionary *otherInfo;
+///沙盒路径
+@property (nonatomic, copy) NSString *sandboxPath;
 
 - (instancetype)initWithOwnSimulatorModel:(MDMSimulatorModel *)ownSimulatorModel;
 + (instancetype)appModelWithOwnSimulatorModel:(MDMSimulatorModel *)ownSimulatorModel;
