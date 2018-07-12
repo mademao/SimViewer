@@ -74,11 +74,9 @@ static NSString * const kMDMXcrunSimctlArgument = @"simctl";
                 break;
             }
         }
-        
-        return resultSandboxPath;
     }
     
-    return analyzeResult;
+    return resultSandboxPath;
 }
 
 ///获取机器的顶层目录

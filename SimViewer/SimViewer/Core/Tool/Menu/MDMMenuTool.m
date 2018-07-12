@@ -131,6 +131,14 @@ static MDMMenuTool *tool = nil;
     menuActionItem.target = self;
     menuActionItem.action = @selector(openSandboxInFinder:);
     [menuAppItem.submenu addItem:menuActionItem];
+    
+    //增加重置沙盒
+    menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
+    menuActionItem.title = @"重置沙盒";
+    menuActionItem.keyEquivalent = @"R";
+    menuActionItem.target = self;
+    menuActionItem.action = @selector(resetSandboxForApp:);
+    [menuAppItem.submenu addItem:menuActionItem];
 }
 
 ///将AppModel插入最近使用数组中
@@ -164,10 +172,33 @@ static dispatch_queue_t queue = NULL;
 
 #pragma mark - MenuActionItem action
 
+///在Finder中打开App沙盒
 - (void)openSandboxInFinder:(MDMMenuActionItem *)menuActionItem {
     if (menuActionItem.appItem.appModel.sandboxPath &&
         ![menuActionItem.appItem.appModel.sandboxPath isEqualToString:@""]) {
         [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[[NSURL URLWithString:menuActionItem.appItem.appModel.sandboxPath]]];
+    }
+}
+
+///重置App沙盒
+- (void)resetSandboxForApp:(MDMMenuActionItem *)menuActionItem {
+    //拼接沙盒目录下三个重要的文件夹以及Library下Caches、Preferences文件夹
+    NSArray<NSString *> *subFolderPaths = @[[menuActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Documents"],
+                                            [menuActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library"],
+                                            [menuActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"tmp"],
+                                            [menuActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library/Caches"],
+                                            [menuActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library/Preferences"],
+                                            ];
+    //清除文件夹下文件
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    for (NSString *folderPath in subFolderPaths) {
+        if (folderPath) {
+            NSArray<NSString *> *filePaths = [fileManager contentsOfDirectoryAtPath:folderPath error:NULL];
+            for (NSString *filePath in filePaths) {
+                [fileManager removeItemAtPath:[folderPath stringByAppendingPathComponent:filePath] error:NULL];
+                //TODO:
+            }
+        }
     }
 }
 
