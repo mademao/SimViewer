@@ -122,13 +122,13 @@ static MDMMenuTool *tool = nil;
 - (void)p_addActionItemForMenuAppItem:(MDMMenuAppItem *)menuAppItem {
     menuAppItem.submenu = [[NSMenu alloc] init];
     
-    //临时ActionItem条目变量
+    //临时ActionItem条目变量。keyEquivalent大写时，快捷键为shift+command+key;keyEquivalent小写时，快捷键为command+key
     MDMMenuActionItem *menuActionItem = nil;
     
     //增加在Finder中打开沙盒
     menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
     menuActionItem.title = @"在Finder中打开";
-    menuActionItem.keyEquivalent = @"F";
+    menuActionItem.keyEquivalent = @"f";
     menuActionItem.target = self;
     menuActionItem.action = @selector(openSandboxInFinder:);
     [menuAppItem.submenu addItem:menuActionItem];
@@ -136,7 +136,7 @@ static MDMMenuTool *tool = nil;
     //增加重置沙盒
     menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
     menuActionItem.title = @"重置沙盒";
-    menuActionItem.keyEquivalent = @"R";
+    menuActionItem.keyEquivalent = @"r";
     menuActionItem.target = self;
     menuActionItem.action = @selector(resetSandboxForApp:);
     [menuAppItem.submenu addItem:menuActionItem];
@@ -144,7 +144,7 @@ static MDMMenuTool *tool = nil;
     //启动App
     menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
     menuActionItem.title = @"启动App";
-    menuActionItem.keyEquivalent = @"L";
+    menuActionItem.keyEquivalent = @"l";
     menuActionItem.target = self;
     menuActionItem.action = @selector(lanuchApp:);
     [menuAppItem.submenu addItem:menuActionItem];
@@ -152,7 +152,7 @@ static MDMMenuTool *tool = nil;
     //关闭App
     menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
     menuActionItem.title = @"关闭App";
-    menuActionItem.keyEquivalent = @"T";
+    menuActionItem.keyEquivalent = @"t";
     menuActionItem.target = self;
     menuActionItem.action = @selector(terminateApp:);
     [menuAppItem.submenu addItem:menuActionItem];
@@ -160,7 +160,7 @@ static MDMMenuTool *tool = nil;
     //增加卸载App
     menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
     menuActionItem.title = @"卸载App";
-    menuActionItem.keyEquivalent = @"U";
+    menuActionItem.keyEquivalent = @"u";
     menuActionItem.target = self;
     menuActionItem.action = @selector(uninstallApp:);
     [menuAppItem.submenu addItem:menuActionItem];
