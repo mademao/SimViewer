@@ -53,6 +53,10 @@ static NSString * const kMDMXcrunSimctlArgument = @"simctl";
         ![[analyzeResult objectForKey:@"DataContainer"] isEqualToString:@""]) {
         //通过xcrun simctl获取没有启动的模拟器上的app信息时，会返回错误并返回为空
         resultSandboxPath = [analyzeResult objectForKey:@"DataContainer"];
+        //避免存在file://前缀造成的NSFileManager访问失败
+        if (resultSandboxPath && [resultSandboxPath hasPrefix:@"file://"]) {
+            resultSandboxPath = [resultSandboxPath substringFromIndex:6];
+        }
     } else {
         //通过遍历Application目录下每个app文件夹，获取元数据进行bundle比较获取对应沙盒路径
         
@@ -70,7 +74,7 @@ static NSString * const kMDMXcrunSimctlArgument = @"simctl";
             NSDictionary *plistDic = [NSDictionary dictionaryWithContentsOfFile:metaDataPath];
             if ([plistDic valueForKeyPath:@"MCMMetadataIdentifier"] &&
                 [[plistDic valueForKeyPath:@"MCMMetadataIdentifier"] isEqualToString:appIdentifier]){
-                resultSandboxPath = sandboxPath;
+                resultSandboxPath = realSandboxPath;
                 break;
             }
         }

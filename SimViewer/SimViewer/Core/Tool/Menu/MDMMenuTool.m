@@ -176,7 +176,8 @@ static dispatch_queue_t queue = NULL;
 - (void)openSandboxInFinder:(MDMMenuActionItem *)menuActionItem {
     if (menuActionItem.appItem.appModel.sandboxPath &&
         ![menuActionItem.appItem.appModel.sandboxPath isEqualToString:@""]) {
-        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[[NSURL URLWithString:menuActionItem.appItem.appModel.sandboxPath]]];
+        //通过fileURLWithPath方法获取到带有file://前缀的路径
+        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[[NSURL fileURLWithPath:menuActionItem.appItem.appModel.sandboxPath]]];
     }
 }
 
@@ -196,7 +197,6 @@ static dispatch_queue_t queue = NULL;
             NSArray<NSString *> *filePaths = [fileManager contentsOfDirectoryAtPath:folderPath error:NULL];
             for (NSString *filePath in filePaths) {
                 [fileManager removeItemAtPath:[folderPath stringByAppendingPathComponent:filePath] error:NULL];
-                //TODO:
             }
         }
     }
