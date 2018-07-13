@@ -6,12 +6,12 @@
 //  Copyright © 2018年 sogou. All rights reserved.
 //
 
-#import "MDMMenuActionItem.h"
+#import "MDMMenuAppActionItem.h"
 
-@implementation MDMMenuActionItem
+@implementation MDMMenuAppActionItem
 
 - (instancetype)init {
-    NSAssert(NO, @"please use -initWithAppItem: or +menuActionItemWithAppItem:");
+    NSAssert(NO, @"please use -initWithAppItem: or +menuAppActionItemWithAppItem:");
     return nil;
 }
 
@@ -22,7 +22,7 @@
     return self;
 }
 
-+ (instancetype)menuActionItemWithAppItem:(MDMMenuAppItem *)appItem {
++ (instancetype)menuAppActionItemWithAppItem:(MDMMenuAppItem *)appItem {
     return [[self alloc] initWithAppItem:appItem];
 }
 

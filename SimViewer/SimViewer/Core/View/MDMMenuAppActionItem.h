@@ -1,5 +1,5 @@
 //
-//  MDMMenuActionItem.h
+//  MDMMenuAppActionItem.h
 //  SimViewer
 //
 //  Created by 马德茂 on 2018/7/2.
@@ -9,12 +9,12 @@
 #import <Cocoa/Cocoa.h>
 #import "MDMMenuAppItem.h"
 
-@interface MDMMenuActionItem : NSMenuItem
+@interface MDMMenuAppActionItem : NSMenuItem
 
 ///当前条目所属的AppItem
 @property (nonatomic, weak) MDMMenuAppItem *appItem;
 
 - (instancetype)initWithAppItem:(MDMMenuAppItem *)appItem;
-+ (instancetype)menuActionItemWithAppItem:(MDMMenuAppItem *)appItem;
++ (instancetype)menuAppActionItemWithAppItem:(MDMMenuAppItem *)appItem;
 
 @end

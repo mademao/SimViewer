@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		410C8B1F20EA45C5001B2E3D /* MDMMenuSimulatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C8B1E20EA45C5001B2E3D /* MDMMenuSimulatorItem.m */; };
-		410C8B2220EA4854001B2E3D /* MDMMenuActionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C8B2120EA4854001B2E3D /* MDMMenuActionItem.m */; };
+		410C8B2220EA4854001B2E3D /* MDMMenuAppActionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C8B2120EA4854001B2E3D /* MDMMenuAppActionItem.m */; };
 		410C8B5A20EBA768001B2E3D /* MDMAppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C8B5920EBA768001B2E3D /* MDMAppModel.m */; };
+		413D563820F8D73900EC79FD /* MDMMenuGenericItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 413D563720F8D73900EC79FD /* MDMMenuGenericItem.m */; };
 		41BC456720E4FD0100C7F905 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC456620E4FD0100C7F905 /* AppDelegate.m */; };
 		41BC456C20E4FD0200C7F905 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41BC456B20E4FD0200C7F905 /* Assets.xcassets */; };
 		41BC457220E4FD0200C7F905 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC457120E4FD0200C7F905 /* main.m */; };
@@ -28,10 +29,12 @@
 		410C8B1920EA3FE1001B2E3D /* MDMThreadTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMThreadTool.h; sourceTree = "<group>"; };
 		410C8B1D20EA45C5001B2E3D /* MDMMenuSimulatorItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMMenuSimulatorItem.h; sourceTree = "<group>"; };
 		410C8B1E20EA45C5001B2E3D /* MDMMenuSimulatorItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMMenuSimulatorItem.m; sourceTree = "<group>"; };
-		410C8B2020EA4854001B2E3D /* MDMMenuActionItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMMenuActionItem.h; sourceTree = "<group>"; };
-		410C8B2120EA4854001B2E3D /* MDMMenuActionItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMMenuActionItem.m; sourceTree = "<group>"; };
+		410C8B2020EA4854001B2E3D /* MDMMenuAppActionItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMMenuAppActionItem.h; sourceTree = "<group>"; };
+		410C8B2120EA4854001B2E3D /* MDMMenuAppActionItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMMenuAppActionItem.m; sourceTree = "<group>"; };
 		410C8B5820EBA768001B2E3D /* MDMAppModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMAppModel.h; sourceTree = "<group>"; };
 		410C8B5920EBA768001B2E3D /* MDMAppModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMAppModel.m; sourceTree = "<group>"; };
+		413D563620F8D73900EC79FD /* MDMMenuGenericItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMMenuGenericItem.h; sourceTree = "<group>"; };
+		413D563720F8D73900EC79FD /* MDMMenuGenericItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMMenuGenericItem.m; sourceTree = "<group>"; };
 		41BC456220E4FD0100C7F905 /* SimViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41BC456520E4FD0100C7F905 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		41BC456620E4FD0100C7F905 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -85,8 +88,10 @@
 				410C8B1E20EA45C5001B2E3D /* MDMMenuSimulatorItem.m */,
 				41F252F020ED22FD00F0CE79 /* MDMMenuAppItem.h */,
 				41F252F120ED22FD00F0CE79 /* MDMMenuAppItem.m */,
-				410C8B2020EA4854001B2E3D /* MDMMenuActionItem.h */,
-				410C8B2120EA4854001B2E3D /* MDMMenuActionItem.m */,
+				410C8B2020EA4854001B2E3D /* MDMMenuAppActionItem.h */,
+				410C8B2120EA4854001B2E3D /* MDMMenuAppActionItem.m */,
+				413D563620F8D73900EC79FD /* MDMMenuGenericItem.h */,
+				413D563720F8D73900EC79FD /* MDMMenuGenericItem.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -288,7 +293,7 @@
 			files = (
 				41BC45F920E63DBF00C7F905 /* MDMXcrunTool.m in Sources */,
 				410C8B1F20EA45C5001B2E3D /* MDMMenuSimulatorItem.m in Sources */,
-				410C8B2220EA4854001B2E3D /* MDMMenuActionItem.m in Sources */,
+				410C8B2220EA4854001B2E3D /* MDMMenuAppActionItem.m in Sources */,
 				41BC45FA20E63DBF00C7F905 /* MDMStringFormatTool.m in Sources */,
 				41BC460820E654DE00C7F905 /* MDMSimulatorGroupModel.m in Sources */,
 				41BC45F820E63DBF00C7F905 /* MDMTaskTool.m in Sources */,
@@ -300,6 +305,7 @@
 				41BC460C20E6641600C7F905 /* MDMMenuTool.m in Sources */,
 				41BC456720E4FD0100C7F905 /* AppDelegate.m in Sources */,
 				41BC45FE20E63E8600C7F905 /* MDMSimulatorTool.m in Sources */,
+				413D563820F8D73900EC79FD /* MDMMenuGenericItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

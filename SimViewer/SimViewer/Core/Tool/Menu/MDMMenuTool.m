@@ -10,6 +10,7 @@
 #import "MDMThreadTool.h"
 #import "MDMSimulatorTool.h"
 #import "MDMXcrunTool.h"
+#import "MDMMenuGenericItem.h"
 
 static const NSUInteger kMDMRecentAppCount = 5;
 
@@ -84,6 +85,9 @@ static MDMMenuTool *tool = nil;
         [itemList addObject:simulatorItem];
     }
     
+    //生成通用操作列表
+    [self p_createGenericItemWithItemList:itemList];
+    
     return [itemList copy];
 }
 
@@ -123,47 +127,47 @@ static MDMMenuTool *tool = nil;
     menuAppItem.submenu = [[NSMenu alloc] init];
     
     //临时ActionItem条目变量。keyEquivalent大写时，快捷键为shift+command+key;keyEquivalent小写时，快捷键为command+key
-    MDMMenuActionItem *menuActionItem = nil;
+    MDMMenuAppActionItem *menuAppActionItem = nil;
     
     //增加在Finder中打开沙盒
-    menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
-    menuActionItem.title = @"在Finder中打开";
-    menuActionItem.keyEquivalent = @"f";
-    menuActionItem.target = self;
-    menuActionItem.action = @selector(openSandboxInFinder:);
-    [menuAppItem.submenu addItem:menuActionItem];
+    menuAppActionItem = [MDMMenuAppActionItem menuAppActionItemWithAppItem:menuAppItem];
+    menuAppActionItem.title = @"在Finder中打开";
+    menuAppActionItem.keyEquivalent = @"f";
+    menuAppActionItem.target = self;
+    menuAppActionItem.action = @selector(openSandboxInFinder:);
+    [menuAppItem.submenu addItem:menuAppActionItem];
     
     //增加重置沙盒
-    menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
-    menuActionItem.title = @"重置沙盒";
-    menuActionItem.keyEquivalent = @"r";
-    menuActionItem.target = self;
-    menuActionItem.action = @selector(resetSandboxForApp:);
-    [menuAppItem.submenu addItem:menuActionItem];
+    menuAppActionItem = [MDMMenuAppActionItem menuAppActionItemWithAppItem:menuAppItem];
+    menuAppActionItem.title = @"重置沙盒";
+    menuAppActionItem.keyEquivalent = @"r";
+    menuAppActionItem.target = self;
+    menuAppActionItem.action = @selector(resetSandboxForApp:);
+    [menuAppItem.submenu addItem:menuAppActionItem];
     
     //启动App
-    menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
-    menuActionItem.title = @"启动App";
-    menuActionItem.keyEquivalent = @"l";
-    menuActionItem.target = self;
-    menuActionItem.action = @selector(lanuchApp:);
-    [menuAppItem.submenu addItem:menuActionItem];
+    menuAppActionItem = [MDMMenuAppActionItem menuAppActionItemWithAppItem:menuAppItem];
+    menuAppActionItem.title = @"启动App";
+    menuAppActionItem.keyEquivalent = @"l";
+    menuAppActionItem.target = self;
+    menuAppActionItem.action = @selector(lanuchApp:);
+    [menuAppItem.submenu addItem:menuAppActionItem];
     
     //关闭App
-    menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
-    menuActionItem.title = @"关闭App";
-    menuActionItem.keyEquivalent = @"t";
-    menuActionItem.target = self;
-    menuActionItem.action = @selector(terminateApp:);
-    [menuAppItem.submenu addItem:menuActionItem];
+    menuAppActionItem = [MDMMenuAppActionItem menuAppActionItemWithAppItem:menuAppItem];
+    menuAppActionItem.title = @"关闭App";
+    menuAppActionItem.keyEquivalent = @"t";
+    menuAppActionItem.target = self;
+    menuAppActionItem.action = @selector(terminateApp:);
+    [menuAppItem.submenu addItem:menuAppActionItem];
     
     //增加卸载App
-    menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
-    menuActionItem.title = @"卸载App";
-    menuActionItem.keyEquivalent = @"u";
-    menuActionItem.target = self;
-    menuActionItem.action = @selector(uninstallApp:);
-    [menuAppItem.submenu addItem:menuActionItem];
+    menuAppActionItem = [MDMMenuAppActionItem menuAppActionItemWithAppItem:menuAppItem];
+    menuAppActionItem.title = @"卸载App";
+    menuAppActionItem.keyEquivalent = @"u";
+    menuAppActionItem.target = self;
+    menuAppActionItem.action = @selector(uninstallApp:);
+    [menuAppItem.submenu addItem:menuAppActionItem];
 }
 
 ///将AppModel插入最近使用数组中
@@ -184,6 +188,11 @@ static MDMMenuTool *tool = nil;
     }
 }
 
+///生成通用操作列表
+- (void)p_createGenericItemWithItemList:(NSMutableArray<NSMenuItem *> *)itemList {
+    //TODO:
+}
+
 static dispatch_queue_t queue = NULL;
 ///生成默认队列
 - (dispatch_queue_t)p_defaultQueue {
@@ -198,22 +207,22 @@ static dispatch_queue_t queue = NULL;
 #pragma mark - MenuActionItem action
 
 ///在Finder中打开App沙盒
-- (void)openSandboxInFinder:(MDMMenuActionItem *)menuActionItem {
-    if (menuActionItem.appItem.appModel.sandboxPath &&
-        ![menuActionItem.appItem.appModel.sandboxPath isEqualToString:@""]) {
+- (void)openSandboxInFinder:(MDMMenuAppActionItem *)menuAppActionItem {
+    if (menuAppActionItem.appItem.appModel.sandboxPath &&
+        ![menuAppActionItem.appItem.appModel.sandboxPath isEqualToString:@""]) {
         //通过fileURLWithPath方法获取到带有file://前缀的路径
-        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[[NSURL fileURLWithPath:menuActionItem.appItem.appModel.sandboxPath]]];
+        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[[NSURL fileURLWithPath:menuAppActionItem.appItem.appModel.sandboxPath]]];
     }
 }
 
 ///重置App沙盒
-- (void)resetSandboxForApp:(MDMMenuActionItem *)menuActionItem {
+- (void)resetSandboxForApp:(MDMMenuAppActionItem *)menuAppActionItem {
     //拼接沙盒目录下三个重要的文件夹以及Library下Caches、Preferences文件夹
-    NSArray<NSString *> *subFolderPaths = @[[menuActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Documents"],
-                                            [menuActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library"],
-                                            [menuActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"tmp"],
-                                            [menuActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library/Caches"],
-                                            [menuActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library/Preferences"],
+    NSArray<NSString *> *subFolderPaths = @[[menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Documents"],
+                                            [menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library"],
+                                            [menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"tmp"],
+                                            [menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library/Caches"],
+                                            [menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library/Preferences"],
                                             ];
     //清除文件夹下文件
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -234,18 +243,18 @@ static dispatch_queue_t queue = NULL;
 }
 
 ///启动App
-- (void)lanuchApp:(MDMMenuActionItem *)menuActionItem {
-    [MDMXcrunTool launchApp:menuActionItem.appItem.appModel.bundleIdentifier onSimulator:menuActionItem.appItem.appModel.ownSimulatorModel.identifier];
+- (void)lanuchApp:(MDMMenuAppActionItem *)menuAppActionItem {
+    [MDMXcrunTool launchApp:menuAppActionItem.appItem.appModel.bundleIdentifier onSimulator:menuAppActionItem.appItem.appModel.ownSimulatorModel.identifier];
 }
 
 ///关闭App
-- (void)terminateApp:(MDMMenuActionItem *)menuActionItem {
-    [MDMXcrunTool terminateApp:menuActionItem.appItem.appModel.bundleIdentifier onSimulator:menuActionItem.appItem.appModel.ownSimulatorModel.identifier];
+- (void)terminateApp:(MDMMenuAppActionItem *)menuAppActionItem {
+    [MDMXcrunTool terminateApp:menuAppActionItem.appItem.appModel.bundleIdentifier onSimulator:menuAppActionItem.appItem.appModel.ownSimulatorModel.identifier];
 }
 
 ///卸载App
-- (void)uninstallApp:(MDMMenuActionItem *)menuActionItem {
-    [MDMXcrunTool uninstallApp:menuActionItem.appItem.appModel.bundleIdentifier fromSimulator:menuActionItem.appItem.appModel.ownSimulatorModel.identifier];
+- (void)uninstallApp:(MDMMenuAppActionItem *)menuAppActionItem {
+    [MDMXcrunTool uninstallApp:menuAppActionItem.appItem.appModel.bundleIdentifier fromSimulator:menuAppActionItem.appItem.appModel.ownSimulatorModel.identifier];
 }
 
 @end
