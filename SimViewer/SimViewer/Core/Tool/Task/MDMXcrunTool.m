@@ -109,6 +109,17 @@ static NSString * const kMDMXcrunSimctlArgument = @"simctl";
     [MDMTaskTool excute:kMDMXcrunCommandPath arguments:@[kMDMXcrunSimctlArgument, @"launch", simulatorIdentifier, appIdentifier]];
 }
 
+///关闭App
++ (void)terminateApp:(NSString *)appIdentifier onSimulator:(NSString *)simulatorIdentifier {
+    if (appIdentifier == nil || [appIdentifier isEqualToString:@""] ||
+        simulatorIdentifier == nil || [simulatorIdentifier isEqualToString:@""]) {
+        return;
+    }
+    
+    //xcrun simctl terminate simulatorIdentifier appIdentifier
+    [MDMTaskTool excute:kMDMXcrunCommandPath arguments:@[kMDMXcrunSimctlArgument, @"terminate", simulatorIdentifier, appIdentifier]];
+}
+
 ///卸载App
 + (void)uninstallApp:(NSString *)appIdentifier fromSimulator:(NSString *)simulatorIdentifier {
     if (appIdentifier == nil || [appIdentifier isEqualToString:@""] ||
