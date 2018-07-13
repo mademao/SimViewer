@@ -47,7 +47,7 @@ static NSString * const kMDMXcrunSimctlArgument = @"simctl";
     //xcrun simctl appinfo simidentifier appidentifier
     NSString *taskResult = [MDMTaskTool excute:kMDMXcrunCommandPath arguments:@[kMDMXcrunSimctlArgument, @"appinfo", simulatorIdentifier, appIdentifier]];
     //解析字符串
-    NSDictionary *analyzeResult = [MDMStringFormatTool analyzeAppInfoString:taskResult];\
+    NSDictionary *analyzeResult = [MDMStringFormatTool analyzeAppInfoString:taskResult];
     
     if ([analyzeResult objectForKey:@"DataContainer"] &&
         ![[analyzeResult objectForKey:@"DataContainer"] isEqualToString:@""]) {
@@ -93,6 +93,17 @@ static NSString * const kMDMXcrunSimctlArgument = @"simctl";
         realHomeDirectory = [NSString stringWithFormat:@"/%@/%@", [pathArray objectAtIndex:1], [pathArray objectAtIndex:2]];
     }
     return realHomeDirectory;
+}
+
+///卸载App
++ (void)uninstallApp:(NSString *)appIdentifier fromSimulator:(NSString *)simulatorIdentifier {
+    if (appIdentifier == nil || [appIdentifier isEqualToString:@""] ||
+        simulatorIdentifier == nil || [simulatorIdentifier isEqualToString:@""]) {
+        return;
+    }
+    
+    //xcrun simctl uninstall simulatorIdentifier appIdentifier
+    [MDMTaskTool excute:kMDMXcrunCommandPath arguments:@[kMDMXcrunSimctlArgument, @"uninstall", simulatorIdentifier, appIdentifier]];
 }
 
 @end

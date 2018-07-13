@@ -9,6 +9,7 @@
 #import "MDMMenuTool.h"
 #import "MDMThreadTool.h"
 #import "MDMSimulatorTool.h"
+#import "MDMXcrunTool.h"
 
 static const NSUInteger kMDMRecentAppCount = 5;
 
@@ -139,6 +140,14 @@ static MDMMenuTool *tool = nil;
     menuActionItem.target = self;
     menuActionItem.action = @selector(resetSandboxForApp:);
     [menuAppItem.submenu addItem:menuActionItem];
+    
+    //增加卸载App
+    menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
+    menuActionItem.title = @"卸载App";
+    menuActionItem.keyEquivalent = @"U";
+    menuActionItem.target = self;
+    menuActionItem.action = @selector(uninstallApp:);
+    [menuAppItem.submenu addItem:menuActionItem];
 }
 
 ///将AppModel插入最近使用数组中
@@ -196,10 +205,21 @@ static dispatch_queue_t queue = NULL;
         if (folderPath) {
             NSArray<NSString *> *filePaths = [fileManager contentsOfDirectoryAtPath:folderPath error:NULL];
             for (NSString *filePath in filePaths) {
-                [fileManager removeItemAtPath:[folderPath stringByAppendingPathComponent:filePath] error:NULL];
+                NSString *needRemovePath = [folderPath stringByAppendingPathComponent:filePath];
+                //避免删除Library下的Caches和Preferences文件夹
+                if ([needRemovePath hasSuffix:@"/Library/Caches"] ||
+                    [needRemovePath hasSuffix:@"/Library/Preferences"]) {
+                    continue;
+                }
+                [fileManager removeItemAtPath:needRemovePath error:NULL];
             }
         }
     }
+}
+
+///卸载App
+- (void)uninstallApp:(MDMMenuActionItem *)menuActionItem {
+    [MDMXcrunTool uninstallApp:menuActionItem.appItem.appModel.bundleIdentifier fromSimulator:menuActionItem.appItem.appModel.ownSimulatorModel.identifier];
 }
 
 @end

@@ -32,4 +32,11 @@
  */
 + (NSString *)getHomeDirectory;
 
+/**
+ 卸载App
+ @param appIdentifier 需要卸载的App bundle
+ @param simulatorIdentifier 需要卸载App的模拟器 bundle
+ */
++ (void)uninstallApp:(NSString *)appIdentifier fromSimulator:(NSString *)simulatorIdentifier;
+
 @end

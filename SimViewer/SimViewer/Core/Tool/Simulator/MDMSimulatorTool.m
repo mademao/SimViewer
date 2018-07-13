@@ -103,7 +103,18 @@
     
     //排序
     [simulatorGroupArray sortUsingComparator:^NSComparisonResult(MDMSimulatorGroupModel *obj1, MDMSimulatorGroupModel *obj2) {
-        return (obj1.os.length > obj2.os.length) ? YES : NO;
+        NSArray<NSString *> *obj1Array = [obj1.os componentsSeparatedByString:@" "];
+        NSArray<NSString *> *obj2Array = [obj2.os componentsSeparatedByString:@" "];
+        if (obj1Array.count > 1 && obj2Array.count > 1) {
+            //先比较系统
+            NSComparisonResult osResult = [[obj1Array objectAtIndex:0] compare:[obj2Array objectAtIndex:0]];
+            if (osResult != NSOrderedSame) {
+                return osResult;
+            }
+            //比较版本号
+            return [[obj1Array objectAtIndex:1] floatValue] > [[obj2Array objectAtIndex:1] floatValue] ? YES : NO;
+        }
+        return obj1.os.length > obj2.os.length ? YES : NO;
     }];
     
     return [simulatorGroupArray copy];
