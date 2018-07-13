@@ -141,6 +141,14 @@ static MDMMenuTool *tool = nil;
     menuActionItem.action = @selector(resetSandboxForApp:);
     [menuAppItem.submenu addItem:menuActionItem];
     
+    //启动App
+    menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
+    menuActionItem.title = @"启动App";
+    menuActionItem.keyEquivalent = @"L";
+    menuActionItem.target = self;
+    menuActionItem.action = @selector(lanuchApp:);
+    [menuAppItem.submenu addItem:menuActionItem];
+    
     //增加卸载App
     menuActionItem = [MDMMenuActionItem menuActionItemWithAppItem:menuAppItem];
     menuActionItem.title = @"卸载App";
@@ -215,6 +223,11 @@ static dispatch_queue_t queue = NULL;
             }
         }
     }
+}
+
+///启动App
+- (void)lanuchApp:(MDMMenuActionItem *)menuActionItem {
+    [MDMXcrunTool launchApp:menuActionItem.appItem.appModel.bundleIdentifier onSimulator:menuActionItem.appItem.appModel.ownSimulatorModel.identifier];
 }
 
 ///卸载App

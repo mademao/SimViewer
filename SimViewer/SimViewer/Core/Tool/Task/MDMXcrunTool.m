@@ -95,6 +95,20 @@ static NSString * const kMDMXcrunSimctlArgument = @"simctl";
     return realHomeDirectory;
 }
 
+///启动App
++ (void)launchApp:(NSString *)appIdentifier onSimulator:(NSString *)simulatorIdentifier {
+    if (appIdentifier == nil || [appIdentifier isEqualToString:@""] ||
+        simulatorIdentifier == nil || [simulatorIdentifier isEqualToString:@""]) {
+        return;
+    }
+    
+    //先启动模拟器
+    [self launchSimulator:simulatorIdentifier];
+    
+    //xcrun simctl launch simulatorIdentifier appIdentifier
+    [MDMTaskTool excute:kMDMXcrunCommandPath arguments:@[kMDMXcrunSimctlArgument, @"launch", simulatorIdentifier, appIdentifier]];
+}
+
 ///卸载App
 + (void)uninstallApp:(NSString *)appIdentifier fromSimulator:(NSString *)simulatorIdentifier {
     if (appIdentifier == nil || [appIdentifier isEqualToString:@""] ||
@@ -104,6 +118,16 @@ static NSString * const kMDMXcrunSimctlArgument = @"simctl";
     
     //xcrun simctl uninstall simulatorIdentifier appIdentifier
     [MDMTaskTool excute:kMDMXcrunCommandPath arguments:@[kMDMXcrunSimctlArgument, @"uninstall", simulatorIdentifier, appIdentifier]];
+}
+
+///启动模拟器
++ (void)launchSimulator:(NSString *)simulatorIdentifier {
+    if (simulatorIdentifier == nil || [simulatorIdentifier isEqualToString:@""]) {
+        return;
+    }
+    
+    //xcrun simctl boot simulatorIdentifier
+    [MDMTaskTool excute:kMDMXcrunCommandPath arguments:@[kMDMXcrunSimctlArgument, @"boot", simulatorIdentifier]];
 }
 
 @end

@@ -33,10 +33,22 @@
 + (NSString *)getHomeDirectory;
 
 /**
+ 启动App
+ @param appIdentifier 需要启动的App bundle
+ @param simulatorIdentifier 需要启动App的模拟器 bundle
+ */
++ (void)launchApp:(NSString *)appIdentifier onSimulator:(NSString *)simulatorIdentifier;
+
+/**
  卸载App
  @param appIdentifier 需要卸载的App bundle
  @param simulatorIdentifier 需要卸载App的模拟器 bundle
  */
 + (void)uninstallApp:(NSString *)appIdentifier fromSimulator:(NSString *)simulatorIdentifier;
 
+/**
+ 启动模拟器
+ @param simulatorIdentifier 需要启动的模拟器 bundle
+*/
++ (void)launchSimulator:(NSString *)simulatorIdentifier;
 @end
