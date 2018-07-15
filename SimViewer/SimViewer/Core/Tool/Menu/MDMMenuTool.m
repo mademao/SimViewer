@@ -14,6 +14,13 @@
 
 static const NSUInteger kMDMRecentAppCount = 5;
 
+@interface MDMMenuTool ()
+
+///代理数组
+@property (nonatomic, strong) NSPointerArray *delegateArray;
+
+@end
+
 @implementation MDMMenuTool
 
 #pragma mark - public methods
@@ -28,12 +35,19 @@ static MDMMenuTool *tool = nil;
     return tool;
 }
 
+///增加为代理
+- (void)addDelegate:(id<MDMMenuToolDelegate>)delegate {
+    [self.delegateArray addPointer:NULL];
+    [self.delegateArray compact];
+    [self.delegateArray addPointer:(__bridge void * _Nullable)(delegate)];
+}
+
 ///生成此刻所需展示列表
 - (NSArray<NSMenuItem *> *)createMenuList {
     NSMutableArray<NSMenuItem *> *itemList = [NSMutableArray array];
     
     //获取此刻活动的模拟器
-    NSArray<MDMSimulatorGroupModel *> *allSimulatorGroup = [MDMSimulatorTool getAllSimulatorGroupWithBooted:NO];
+    NSArray<MDMSimulatorGroupModel *> *allSimulatorGroup = [MDMSimulatorTool getAllSimulatorGroupWithBooted:[MDMUserDefaultsTool getOnlyLoadBootedSimulatorStatus]];
     
     //最近活跃App数组
     NSMutableArray<MDMAppModel *> *recentAppModelArray = [NSMutableArray arrayWithCapacity:kMDMRecentAppCount];
@@ -190,7 +204,20 @@ static MDMMenuTool *tool = nil;
 
 ///生成通用操作列表
 - (void)p_createGenericItemWithItemList:(NSMutableArray<NSMenuItem *> *)itemList {
-    //TODO:
+    if (itemList.count > 0) {
+        [itemList addObject:[NSMenuItem separatorItem]];
+    }
+    
+    //临时GenericItem条目变量。
+    MDMMenuGenericItem *menuGenericItem = nil;
+    
+    //增加是否只加载启动模拟器
+    BOOL status = [MDMUserDefaultsTool getOnlyLoadBootedSimulatorStatus];
+    menuGenericItem = [[MDMMenuGenericItem alloc] init];
+    menuGenericItem.title = [NSString stringWithFormat:@"只加载启动模拟器：%@", status == YES ? @"是" : @"否"];
+    menuGenericItem.target = self;
+    menuGenericItem.action = @selector(onlyLoadBootedSimulatorChange:);
+    [itemList addObject:menuGenericItem];
 }
 
 static dispatch_queue_t queue = NULL;
@@ -255,6 +282,30 @@ static dispatch_queue_t queue = NULL;
 ///卸载App
 - (void)uninstallApp:(MDMMenuAppActionItem *)menuAppActionItem {
     [MDMXcrunTool uninstallApp:menuAppActionItem.appItem.appModel.bundleIdentifier fromSimulator:menuAppActionItem.appItem.appModel.ownSimulatorModel.identifier];
+}
+
+///是否只加载启动模拟器
+- (void)onlyLoadBootedSimulatorChange:(MDMMenuGenericItem *)menuGenericItem {
+    [MDMUserDefaultsTool setOnlyLoadBootedSimulatorStatue:![MDMUserDefaultsTool getOnlyLoadBootedSimulatorStatus]];
+    if (self.delegateArray.count > 0) {
+        [self asyncCreateMenuListWithBlock:^(NSArray<NSMenuItem *> *itemList) {
+            for (id delegate in self.delegateArray) {
+                if ([delegate respondsToSelector:@selector(menuListDidChangedWithNewMenuList:)]) {
+                    [delegate menuListDidChangedWithNewMenuList:itemList];
+                }
+            }
+        }];
+    }
+}
+
+
+#pragma mark - lazy load
+
+- (NSPointerArray *)delegateArray {
+    if (_delegateArray == nil) {
+        _delegateArray = [NSPointerArray weakObjectsPointerArray];
+    }
+    return _delegateArray;
 }
 
 @end

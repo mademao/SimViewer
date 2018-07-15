@@ -10,7 +10,15 @@
 #import "MDMMenuSimulatorItem.h"
 #import "MDMMenuAppActionItem.h"
 #import "MDMMenuAppItem.h"
+#import "MDMUserDefaultsTool.h"
 #import <Cocoa/Cocoa.h>
+
+@protocol MDMMenuToolDelegate <NSObject>
+
+///条目发生变化
+- (void)menuListDidChangedWithNewMenuList:(NSArray<NSMenuItem *> *)menuList;
+
+@end
 
 @interface MDMMenuTool : MDMBaseModel
 
@@ -19,6 +27,9 @@
 
 ///单例
 + (instancetype)sharedMenuTool;
+
+///增加为代理
+- (void)addDelegate:(id<MDMMenuToolDelegate>)delegate;
 
 /**
  生成此刻所需展示列表

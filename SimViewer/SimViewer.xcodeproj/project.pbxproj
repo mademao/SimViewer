@@ -10,6 +10,7 @@
 		410C8B1F20EA45C5001B2E3D /* MDMMenuSimulatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C8B1E20EA45C5001B2E3D /* MDMMenuSimulatorItem.m */; };
 		410C8B2220EA4854001B2E3D /* MDMMenuAppActionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C8B2120EA4854001B2E3D /* MDMMenuAppActionItem.m */; };
 		410C8B5A20EBA768001B2E3D /* MDMAppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C8B5920EBA768001B2E3D /* MDMAppModel.m */; };
+		4118A2F420FB0035008E450F /* MDMUserDefaultsTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4118A2F320FB0035008E450F /* MDMUserDefaultsTool.m */; };
 		413D563820F8D73900EC79FD /* MDMMenuGenericItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 413D563720F8D73900EC79FD /* MDMMenuGenericItem.m */; };
 		41BC456720E4FD0100C7F905 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC456620E4FD0100C7F905 /* AppDelegate.m */; };
 		41BC456C20E4FD0200C7F905 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41BC456B20E4FD0200C7F905 /* Assets.xcassets */; };
@@ -33,6 +34,8 @@
 		410C8B2120EA4854001B2E3D /* MDMMenuAppActionItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMMenuAppActionItem.m; sourceTree = "<group>"; };
 		410C8B5820EBA768001B2E3D /* MDMAppModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMAppModel.h; sourceTree = "<group>"; };
 		410C8B5920EBA768001B2E3D /* MDMAppModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMAppModel.m; sourceTree = "<group>"; };
+		4118A2F220FB0035008E450F /* MDMUserDefaultsTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMUserDefaultsTool.h; sourceTree = "<group>"; };
+		4118A2F320FB0035008E450F /* MDMUserDefaultsTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMUserDefaultsTool.m; sourceTree = "<group>"; };
 		413D563620F8D73900EC79FD /* MDMMenuGenericItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMMenuGenericItem.h; sourceTree = "<group>"; };
 		413D563720F8D73900EC79FD /* MDMMenuGenericItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMMenuGenericItem.m; sourceTree = "<group>"; };
 		41BC456220E4FD0100C7F905 /* SimViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +99,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		4118A2F120FAFFE1008E450F /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				4118A2F220FB0035008E450F /* MDMUserDefaultsTool.h */,
+				4118A2F320FB0035008E450F /* MDMUserDefaultsTool.m */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
 		41BC455920E4FD0100C7F905 = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +159,7 @@
 		41BC45E720E6234D00C7F905 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				4118A2F120FAFFE1008E450F /* UserDefaults */,
 				410C8B1820EA3FD6001B2E3D /* Thread */,
 				41BC460920E663DF00C7F905 /* Menu */,
 				41BC45FB20E63E2600C7F905 /* Simulator */,
@@ -294,6 +307,7 @@
 				41BC45F920E63DBF00C7F905 /* MDMXcrunTool.m in Sources */,
 				410C8B1F20EA45C5001B2E3D /* MDMMenuSimulatorItem.m in Sources */,
 				410C8B2220EA4854001B2E3D /* MDMMenuAppActionItem.m in Sources */,
+				4118A2F420FB0035008E450F /* MDMUserDefaultsTool.m in Sources */,
 				41BC45FA20E63DBF00C7F905 /* MDMStringFormatTool.m in Sources */,
 				41BC460820E654DE00C7F905 /* MDMSimulatorGroupModel.m in Sources */,
 				41BC45F820E63DBF00C7F905 /* MDMTaskTool.m in Sources */,

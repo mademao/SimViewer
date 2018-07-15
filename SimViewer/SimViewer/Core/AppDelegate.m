@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "MDMMenuTool.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <MDMMenuToolDelegate>
 
 //状态栏item，此变量需要强引用，否则在释放之后同时从状态栏消失
 @property (nonatomic, strong) NSStatusItem *statusItem;
@@ -30,15 +30,29 @@
     self.statusItem.enabled = YES;
     //设置操作列表
     self.statusItem.menu = [[NSMenu alloc] init];
+    [[MDMMenuTool sharedMenuTool] addDelegate:self];
     NSArray<NSMenuItem *> *itemList = [[MDMMenuTool sharedMenuTool] createMenuList];
+    [self updateMenuWithItemList:itemList];
+}
+
+
+- (void)applicationWillTerminate:(NSNotification *)aNotification {
+    // Insert code here to tear down your application
+}
+
+///更新列表
+- (void)updateMenuWithItemList:(NSArray<NSMenuItem *> *)itemList {
+    [self.statusItem.menu removeAllItems];
     for (NSMenuItem *menuItem in itemList) {
         [self.statusItem.menu addItem:menuItem];
     }
 }
 
 
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
+#pragma mark - MDMMenuToolDelegate
+
+- (void)menuListDidChangedWithNewMenuList:(NSArray<NSMenuItem *> *)menuList {
+    [self updateMenuWithItemList:menuList];
 }
 
 
