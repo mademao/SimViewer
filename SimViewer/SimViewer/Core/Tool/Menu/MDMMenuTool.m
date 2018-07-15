@@ -251,53 +251,63 @@ static dispatch_queue_t queue = NULL;
 
 ///在Finder中打开App沙盒
 - (void)openSandboxInFinder:(MDMMenuAppActionItem *)menuAppActionItem {
-    if (menuAppActionItem.appItem.appModel.sandboxPath &&
-        ![menuAppActionItem.appItem.appModel.sandboxPath isEqualToString:@""]) {
-        //通过fileURLWithPath方法获取到带有file://前缀的路径
-        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[[NSURL fileURLWithPath:menuAppActionItem.appItem.appModel.sandboxPath]]];
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if (menuAppActionItem.appItem.appModel.sandboxPath &&
+            ![menuAppActionItem.appItem.appModel.sandboxPath isEqualToString:@""]) {
+            //通过fileURLWithPath方法获取到带有file://前缀的路径
+            [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[[NSURL fileURLWithPath:menuAppActionItem.appItem.appModel.sandboxPath]]];
+        }
+    });
 }
 
 ///重置App沙盒
 - (void)resetSandboxForApp:(MDMMenuAppActionItem *)menuAppActionItem {
-    //拼接沙盒目录下三个重要的文件夹以及Library下Caches、Preferences文件夹
-    NSArray<NSString *> *subFolderPaths = @[[menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Documents"],
-                                            [menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library"],
-                                            [menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"tmp"],
-                                            [menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library/Caches"],
-                                            [menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library/Preferences"],
-                                            ];
-    //清除文件夹下文件
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    for (NSString *folderPath in subFolderPaths) {
-        if (folderPath) {
-            NSArray<NSString *> *filePaths = [fileManager contentsOfDirectoryAtPath:folderPath error:NULL];
-            for (NSString *filePath in filePaths) {
-                NSString *needRemovePath = [folderPath stringByAppendingPathComponent:filePath];
-                //避免删除Library下的Caches和Preferences文件夹
-                if ([needRemovePath hasSuffix:@"/Library/Caches"] ||
-                    [needRemovePath hasSuffix:@"/Library/Preferences"]) {
-                    continue;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //拼接沙盒目录下三个重要的文件夹以及Library下Caches、Preferences文件夹
+        NSArray<NSString *> *subFolderPaths = @[[menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Documents"],
+                                                [menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library"],
+                                                [menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"tmp"],
+                                                [menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library/Caches"],
+                                                [menuAppActionItem.appItem.appModel.sandboxPath stringByAppendingPathComponent:@"Library/Preferences"],
+                                                ];
+        //清除文件夹下文件
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        for (NSString *folderPath in subFolderPaths) {
+            if (folderPath) {
+                NSArray<NSString *> *filePaths = [fileManager contentsOfDirectoryAtPath:folderPath error:NULL];
+                for (NSString *filePath in filePaths) {
+                    NSString *needRemovePath = [folderPath stringByAppendingPathComponent:filePath];
+                    //避免删除Library下的Caches和Preferences文件夹
+                    if ([needRemovePath hasSuffix:@"/Library/Caches"] ||
+                        [needRemovePath hasSuffix:@"/Library/Preferences"]) {
+                        continue;
+                    }
+                    [fileManager removeItemAtPath:needRemovePath error:NULL];
                 }
-                [fileManager removeItemAtPath:needRemovePath error:NULL];
             }
         }
-    }
+    });
 }
 
 ///启动App
 - (void)lanuchApp:(MDMMenuAppActionItem *)menuAppActionItem {
-    [MDMXcrunTool launchApp:menuAppActionItem.appItem.appModel.bundleIdentifier onSimulator:menuAppActionItem.appItem.appModel.ownSimulatorModel.identifier];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [MDMXcrunTool launchApp:menuAppActionItem.appItem.appModel.bundleIdentifier onSimulator:menuAppActionItem.appItem.appModel.ownSimulatorModel.identifier];
+    });
 }
 
 ///关闭App
 - (void)terminateApp:(MDMMenuAppActionItem *)menuAppActionItem {
-    [MDMXcrunTool terminateApp:menuAppActionItem.appItem.appModel.bundleIdentifier onSimulator:menuAppActionItem.appItem.appModel.ownSimulatorModel.identifier];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [MDMXcrunTool terminateApp:menuAppActionItem.appItem.appModel.bundleIdentifier onSimulator:menuAppActionItem.appItem.appModel.ownSimulatorModel.identifier];
+    });
 }
 
 ///卸载App
 - (void)uninstallApp:(MDMMenuAppActionItem *)menuAppActionItem {
-    [MDMXcrunTool uninstallApp:menuAppActionItem.appItem.appModel.bundleIdentifier fromSimulator:menuAppActionItem.appItem.appModel.ownSimulatorModel.identifier];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [MDMXcrunTool uninstallApp:menuAppActionItem.appItem.appModel.bundleIdentifier fromSimulator:menuAppActionItem.appItem.appModel.ownSimulatorModel.identifier];
+    });
 }
 
 ///是否只加载启动模拟器
