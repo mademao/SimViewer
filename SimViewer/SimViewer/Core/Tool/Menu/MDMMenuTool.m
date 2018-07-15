@@ -13,6 +13,7 @@
 #import "MDMMenuGenericItem.h"
 
 static const NSUInteger kMDMRecentAppCount = 5;
+static NSString * const kMDMEmail = @"ismademao@gmail.com";
 
 @interface MDMMenuTool ()
 
@@ -218,6 +219,21 @@ static MDMMenuTool *tool = nil;
     menuGenericItem.target = self;
     menuGenericItem.action = @selector(onlyLoadBootedSimulatorChange:);
     [itemList addObject:menuGenericItem];
+    
+    //增加反馈功能
+    menuGenericItem = [[MDMMenuGenericItem alloc] init];
+    menuGenericItem.title = @"意见反馈";
+    menuGenericItem.target = self;
+    menuGenericItem.action = @selector(sendFeedback:);
+    [itemList addObject:menuGenericItem];
+    
+    //增加退出功能
+    menuGenericItem = [[MDMMenuGenericItem alloc] init];
+    menuGenericItem.title = @"退出";
+    menuGenericItem.keyEquivalent = @"q";
+    menuGenericItem.target = self;
+    menuGenericItem.action = @selector(quitApp:);
+    [itemList addObject:menuGenericItem];
 }
 
 static dispatch_queue_t queue = NULL;
@@ -296,6 +312,16 @@ static dispatch_queue_t queue = NULL;
             }
         }];
     }
+}
+
+///反馈
+- (void)sendFeedback:(MDMMenuGenericItem *)genericItem {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", kMDMEmail]]];
+}
+
+///退出
+- (void)quitApp:(MDMMenuGenericItem *)genericItem {
+    [NSApp terminate:self];
 }
 
 
