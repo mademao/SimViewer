@@ -11,6 +11,7 @@
 #import "MDMSimulatorTool.h"
 #import "MDMXcrunTool.h"
 #import "MDMMenuGenericItem.h"
+#import "DirectoryWatcher.h"
 
 static const NSUInteger kMDMRecentAppCount = 5;
 static NSString * const kMDMEmail = @"ismademao@gmail.com";

@@ -12,6 +12,7 @@
 		410C8B5A20EBA768001B2E3D /* MDMAppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C8B5920EBA768001B2E3D /* MDMAppModel.m */; };
 		4118A2F420FB0035008E450F /* MDMUserDefaultsTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4118A2F320FB0035008E450F /* MDMUserDefaultsTool.m */; };
 		413D563820F8D73900EC79FD /* MDMMenuGenericItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 413D563720F8D73900EC79FD /* MDMMenuGenericItem.m */; };
+		41580F5C20FE428B00E52831 /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 41580F5A20FE428B00E52831 /* DirectoryWatcher.m */; };
 		41BC456720E4FD0100C7F905 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC456620E4FD0100C7F905 /* AppDelegate.m */; };
 		41BC456C20E4FD0200C7F905 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41BC456B20E4FD0200C7F905 /* Assets.xcassets */; };
 		41BC457220E4FD0200C7F905 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BC457120E4FD0200C7F905 /* main.m */; };
@@ -38,6 +39,8 @@
 		4118A2F320FB0035008E450F /* MDMUserDefaultsTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMUserDefaultsTool.m; sourceTree = "<group>"; };
 		413D563620F8D73900EC79FD /* MDMMenuGenericItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMMenuGenericItem.h; sourceTree = "<group>"; };
 		413D563720F8D73900EC79FD /* MDMMenuGenericItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMMenuGenericItem.m; sourceTree = "<group>"; };
+		41580F5A20FE428B00E52831 /* DirectoryWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryWatcher.m; sourceTree = "<group>"; };
+		41580F5B20FE428B00E52831 /* DirectoryWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryWatcher.h; sourceTree = "<group>"; };
 		41BC456220E4FD0100C7F905 /* SimViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41BC456520E4FD0100C7F905 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		41BC456620E4FD0100C7F905 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -108,6 +111,15 @@
 			path = UserDefaults;
 			sourceTree = "<group>";
 		};
+		41580F5920FE428300E52831 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				41580F5B20FE428B00E52831 /* DirectoryWatcher.h */,
+				41580F5A20FE428B00E52831 /* DirectoryWatcher.m */,
+			);
+			path = ThirdParty;
+			sourceTree = "<group>";
+		};
 		41BC455920E4FD0100C7F905 = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +139,7 @@
 		41BC456420E4FD0100C7F905 /* SimViewer */ = {
 			isa = PBXGroup;
 			children = (
+				41580F5920FE428300E52831 /* ThirdParty */,
 				41BC45E520E6228700C7F905 /* Core */,
 				41BC45E420E6222E00C7F905 /* Supporting Files */,
 			);
@@ -313,6 +326,7 @@
 				41BC45F820E63DBF00C7F905 /* MDMTaskTool.m in Sources */,
 				410C8B5A20EBA768001B2E3D /* MDMAppModel.m in Sources */,
 				41BC460520E640D500C7F905 /* MDMBaseModel.m in Sources */,
+				41580F5C20FE428B00E52831 /* DirectoryWatcher.m in Sources */,
 				41F252F220ED22FD00F0CE79 /* MDMMenuAppItem.m in Sources */,
 				41BC457220E4FD0200C7F905 /* main.m in Sources */,
 				41BC460220E63F0900C7F905 /* MDMSimulatorModel.m in Sources */,
