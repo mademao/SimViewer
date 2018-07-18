@@ -65,8 +65,12 @@
     int kq;
 
 	CFFileDescriptorRef dirKQRef;
+    
+    CFAbsoluteTime lastCallDelegateTime;
 }
 @property (nonatomic, weak) id <DirectoryWatcherDelegate> delegate;
+
+@property (nonatomic, copy) NSString *watchPath;
 
 + (DirectoryWatcher *)watchFolderWithPath:(NSString *)watchPath delegate:(id<DirectoryWatcherDelegate>)watchDelegate;
 - (void)invalidate;

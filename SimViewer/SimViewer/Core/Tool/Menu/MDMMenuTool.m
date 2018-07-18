@@ -16,10 +16,16 @@
 static const NSUInteger kMDMRecentAppCount = 5;
 static NSString * const kMDMEmail = @"ismademao@gmail.com";
 
-@interface MDMMenuTool ()
+@interface MDMMenuTool () <DirectoryWatcherDelegate>
 
 ///代理数组
 @property (nonatomic, strong) NSPointerArray *delegateArray;
+
+///监听组件
+@property (nonatomic, strong) NSMutableArray<DirectoryWatcher *> *directoryWatcherArray;
+
+///用于保留上次监听通知时间，避免短时间内多次调用
+@property (nonatomic, assign) CFAbsoluteTime lastWatcherTime;
 
 @end
 
@@ -35,6 +41,13 @@ static MDMMenuTool *tool = nil;
         tool = [[MDMMenuTool alloc] init];
     });
     return tool;
+}
+
+- (instancetype)init {
+    if (self == [super init]) {
+        self.lastWatcherTime = 0;
+    }
+    return self;
 }
 
 ///增加为代理
@@ -103,6 +116,9 @@ static MDMMenuTool *tool = nil;
     
     //生成通用操作列表
     [self p_createGenericItemWithItemList:itemList];
+    
+    //开启监听
+    [self p_startWatchDirectoryWithItemList:itemList];
     
     return [itemList copy];
 }
@@ -237,6 +253,31 @@ static MDMMenuTool *tool = nil;
     [itemList addObject:menuGenericItem];
 }
 
+///开启监听
+- (void)p_startWatchDirectoryWithItemList:(NSArray<NSMenuItem *> *)itemList {
+    for (DirectoryWatcher *directoryWatcher in self.directoryWatcherArray) {
+        [directoryWatcher invalidate];
+    }
+    [self.directoryWatcherArray removeAllObjects];
+    
+    //临时监听对象
+    DirectoryWatcher *directoryWatcher = nil;
+    
+    //监听模拟器变动
+    directoryWatcher = [DirectoryWatcher watchFolderWithPath:[NSString stringWithFormat:@"%@/Library/Developer/CoreSimulator/Devices", [MDMXcrunTool getHomeDirectory]] delegate:self];
+    [self.directoryWatcherArray addObject:directoryWatcher];
+    
+    //当App重新运行时，Bundle中对应的App文件夹名称也会改变
+    for (NSMenuItem *menuItem in itemList) {
+        if ([menuItem isKindOfClass:[MDMMenuSimulatorItem class]]) {
+            MDMMenuSimulatorItem *simulatorItem = (MDMMenuSimulatorItem *)menuItem;
+            directoryWatcher = [DirectoryWatcher watchFolderWithPath:[NSString stringWithFormat:@"%@/Library/Developer/CoreSimulator/Devices/%@/data/Containers/Bundle/Application", [MDMXcrunTool getHomeDirectory], simulatorItem.simulatorModel.identifier] delegate:self];
+            NSLog(@"1-->%@", directoryWatcher.watchPath);
+            [self.directoryWatcherArray addObject:directoryWatcher];
+        }
+    }
+}
+
 static dispatch_queue_t queue = NULL;
 ///生成默认队列
 - (dispatch_queue_t)p_defaultQueue {
@@ -336,6 +377,14 @@ static dispatch_queue_t queue = NULL;
 }
 
 
+#pragma mark - DirectoryWatcherDelegate
+
+- (void)directoryDidChange:(DirectoryWatcher *)folderWatcher {
+    NSLog(@"-->%@", folderWatcher.watchPath);
+    //TODO:增加上次通知时间判断，增加回调处理
+}
+
+
 #pragma mark - lazy load
 
 - (NSPointerArray *)delegateArray {
@@ -343,6 +392,13 @@ static dispatch_queue_t queue = NULL;
         _delegateArray = [NSPointerArray weakObjectsPointerArray];
     }
     return _delegateArray;
+}
+
+- (NSMutableArray<DirectoryWatcher *> *)directoryWatcherArray {
+    if (_directoryWatcherArray == nil) {
+        _directoryWatcherArray = [NSMutableArray array];
+    }
+    return _directoryWatcherArray;
 }
 
 @end

@@ -79,6 +79,8 @@
     kq = -1;
 	dirKQRef = NULL;
 	
+    lastCallDelegateTime = 0;
+    
 	return self;
 }
 
@@ -99,6 +101,7 @@
 			// Everything appears to be in order, so return the DirectoryWatcher.  
 			// Otherwise we'll fall through and return NULL.
 			retVal = tempManager;
+            tempManager.watchPath = watchPath;
 		}
 	}
 	return retVal;
@@ -142,7 +145,11 @@
     assert((eventCount >= 0) && (eventCount < 2));
     
 	// call our delegate of the directory change
-    [delegate directoryDidChange:self];
+    CFAbsoluteTime currentTime = CFAbsoluteTimeGetCurrent();
+    if (currentTime - lastCallDelegateTime > 1.0) {
+        [delegate directoryDidChange:self];
+        lastCallDelegateTime = currentTime;
+    }
 
     CFFileDescriptorEnableCallBacks(dirKQRef, kCFFileDescriptorReadCallBack);
 }
