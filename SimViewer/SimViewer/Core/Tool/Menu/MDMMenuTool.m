@@ -255,6 +255,7 @@ static MDMMenuTool *tool = nil;
 
 ///开启监听
 - (void)p_startWatchDirectoryWithItemList:(NSArray<NSMenuItem *> *)itemList {
+    NSLog(@"--->");
     for (DirectoryWatcher *directoryWatcher in self.directoryWatcherArray) {
         [directoryWatcher invalidate];
     }
@@ -272,9 +273,24 @@ static MDMMenuTool *tool = nil;
         if ([menuItem isKindOfClass:[MDMMenuSimulatorItem class]]) {
             MDMMenuSimulatorItem *simulatorItem = (MDMMenuSimulatorItem *)menuItem;
             directoryWatcher = [DirectoryWatcher watchFolderWithPath:[NSString stringWithFormat:@"%@/Library/Developer/CoreSimulator/Devices/%@/data/Containers/Bundle/Application", [MDMXcrunTool getHomeDirectory], simulatorItem.simulatorModel.identifier] delegate:self];
-            NSLog(@"1-->%@", directoryWatcher.watchPath);
-            [self.directoryWatcherArray addObject:directoryWatcher];
+            //TODO:空模拟器
+            if (directoryWatcher) {
+                [self.directoryWatcherArray addObject:directoryWatcher];
+            }
         }
+    }
+}
+
+///通知代理列表更新
+- (void)p_callDelegateRefreshItemList {
+    if (self.delegateArray.count > 0) {
+        [self asyncCreateMenuListWithBlock:^(NSArray<NSMenuItem *> *itemList) {
+            for (id delegate in self.delegateArray) {
+                if ([delegate respondsToSelector:@selector(menuListDidChangedWithNewMenuList:)]) {
+                    [delegate menuListDidChangedWithNewMenuList:itemList];
+                }
+            }
+        }];
     }
 }
 
@@ -333,6 +349,7 @@ static dispatch_queue_t queue = NULL;
 
 ///启动App
 - (void)lanuchApp:(MDMMenuAppActionItem *)menuAppActionItem {
+    //TODO:若Simulator.app没启动时，这个方法需要提前启动Simulator.app
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [MDMXcrunTool launchApp:menuAppActionItem.appItem.appModel.bundleIdentifier onSimulator:menuAppActionItem.appItem.appModel.ownSimulatorModel.identifier];
     });
@@ -355,15 +372,7 @@ static dispatch_queue_t queue = NULL;
 ///是否只加载启动模拟器
 - (void)onlyLoadBootedSimulatorChange:(MDMMenuGenericItem *)menuGenericItem {
     [MDMUserDefaultsTool setOnlyLoadBootedSimulatorStatue:![MDMUserDefaultsTool getOnlyLoadBootedSimulatorStatus]];
-    if (self.delegateArray.count > 0) {
-        [self asyncCreateMenuListWithBlock:^(NSArray<NSMenuItem *> *itemList) {
-            for (id delegate in self.delegateArray) {
-                if ([delegate respondsToSelector:@selector(menuListDidChangedWithNewMenuList:)]) {
-                    [delegate menuListDidChangedWithNewMenuList:itemList];
-                }
-            }
-        }];
-    }
+    [self p_callDelegateRefreshItemList];
 }
 
 ///反馈
@@ -380,8 +389,11 @@ static dispatch_queue_t queue = NULL;
 #pragma mark - DirectoryWatcherDelegate
 
 - (void)directoryDidChange:(DirectoryWatcher *)folderWatcher {
-    NSLog(@"-->%@", folderWatcher.watchPath);
-    //TODO:增加上次通知时间判断，增加回调处理
+    CFAbsoluteTime currentTime = CFAbsoluteTimeGetCurrent();
+    if (currentTime - self.lastWatcherTime > 1.0) {
+        [self p_callDelegateRefreshItemList];
+        self.lastWatcherTime = currentTime;
+    }
 }
 
 

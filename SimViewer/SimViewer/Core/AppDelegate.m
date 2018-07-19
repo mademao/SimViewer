@@ -33,6 +33,7 @@
     [[MDMMenuTool sharedMenuTool] addDelegate:self];
     NSArray<NSMenuItem *> *itemList = [[MDMMenuTool sharedMenuTool] createMenuList];
     [self updateMenuWithItemList:itemList];
+    //TODO:增加定时刷新，可考虑CFRunLoopObserverRef，在runloop即将改变的时候去改变
 }
 
 
@@ -52,6 +53,7 @@
 #pragma mark - MDMMenuToolDelegate
 
 - (void)menuListDidChangedWithNewMenuList:(NSArray<NSMenuItem *> *)menuList {
+    NSLog(@"****");
     [self updateMenuWithItemList:menuList];
 }
 
