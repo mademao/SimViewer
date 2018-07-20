@@ -59,6 +59,7 @@ static MDMMenuTool *tool = nil;
 
 ///生成此刻所需展示列表
 - (NSArray<NSMenuItem *> *)createMenuList {
+    NSLog(@"--->1");
     NSMutableArray<NSMenuItem *> *itemList = [NSMutableArray array];
     
     //获取此刻活动的模拟器
@@ -255,7 +256,7 @@ static MDMMenuTool *tool = nil;
 
 ///开启监听
 - (void)p_startWatchDirectoryWithItemList:(NSArray<NSMenuItem *> *)itemList {
-    NSLog(@"--->");
+    return;
     for (DirectoryWatcher *directoryWatcher in self.directoryWatcherArray) {
         [directoryWatcher invalidate];
     }

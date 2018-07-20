@@ -29,11 +29,9 @@
     //是否可交互
     self.statusItem.enabled = YES;
     //设置操作列表
-    self.statusItem.menu = [[NSMenu alloc] init];
+    self.statusItem.target = self;
+    self.statusItem.action = @selector(statusItemAction:);
     [[MDMMenuTool sharedMenuTool] addDelegate:self];
-    NSArray<NSMenuItem *> *itemList = [[MDMMenuTool sharedMenuTool] createMenuList];
-    [self updateMenuWithItemList:itemList];
-    //TODO:增加定时刷新，可考虑CFRunLoopObserverRef，在runloop即将改变的时候去改变
 }
 
 
@@ -43,18 +41,26 @@
 
 ///更新列表
 - (void)updateMenuWithItemList:(NSArray<NSMenuItem *> *)itemList {
-    [self.statusItem.menu removeAllItems];
+    NSMenu *menu = [[NSMenu alloc] init];
     for (NSMenuItem *menuItem in itemList) {
-        [self.statusItem.menu addItem:menuItem];
+        [menu addItem:menuItem];
     }
+    [self.statusItem popUpStatusItemMenu:menu];
+}
+
+///状态块点击事件
+- (void)statusItemAction:(NSMenuItem *)menuItem {
+    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+    NSArray<NSMenuItem *> *itemList = [[MDMMenuTool sharedMenuTool] createMenuList];
+    NSLog(@"%f", CFAbsoluteTimeGetCurrent() - startTime);
+    [self updateMenuWithItemList:itemList];
 }
 
 
 #pragma mark - MDMMenuToolDelegate
 
-- (void)menuListDidChangedWithNewMenuList:(NSArray<NSMenuItem *> *)menuList {
-    NSLog(@"****");
-    [self updateMenuWithItemList:menuList];
+- (void)menuListDidChangedWithNewMenuList:(NSArray<NSMenuItem *> *)itemList {
+//    [self updateMenuWithItemList:itemList];
 }
 
 
