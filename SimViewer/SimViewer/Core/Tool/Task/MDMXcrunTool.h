@@ -58,4 +58,10 @@
  @param simulatorIdentifier 需要启动的模拟器 bundle
 */
 + (void)launchSimulator:(NSString *)simulatorIdentifier;
+
+/**
+ 启动Simulator.app
+ */
++ (void)launchSimulatorApp;
+
 @end

@@ -137,8 +137,19 @@ static NSString * const kMDMXcrunSimctlArgument = @"simctl";
         return;
     }
     
+    //先启动Simulator.app
+    [self launchSimulatorApp];
+    
     //xcrun simctl boot simulatorIdentifier
     [MDMTaskTool excute:kMDMXcrunCommandPath arguments:@[kMDMXcrunSimctlArgument, @"boot", simulatorIdentifier]];
+}
+
+///启动Simulator.app
++ (void)launchSimulatorApp {
+    //open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+    NSString *open = [NSString stringWithFormat:@"open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"];
+    const char *str = [open UTF8String];
+    system(str);
 }
 
 @end

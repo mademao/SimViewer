@@ -349,7 +349,6 @@ static dispatch_queue_t queue = NULL;
 
 ///启动App
 - (void)lanuchApp:(MDMMenuAppActionItem *)menuAppActionItem {
-    //TODO:若Simulator.app没启动时，这个方法需要提前启动Simulator.app
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [MDMXcrunTool launchApp:menuAppActionItem.appItem.appModel.bundleIdentifier onSimulator:menuAppActionItem.appItem.appModel.ownSimulatorModel.identifier];
     });
