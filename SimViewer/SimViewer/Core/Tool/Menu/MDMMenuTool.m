@@ -255,9 +255,12 @@ static MDMMenuTool *tool = nil;
 
 ///开启监听
 - (void)p_startWatchDirectoryWithItemList:(NSArray<NSMenuItem *> *)itemList {
-    NSLog(@"--->");
+    //TODO:这样居然行了。。。
+    if (self.directoryWatcherArray.count > 0) {
+        return;
+    }
     for (DirectoryWatcher *directoryWatcher in self.directoryWatcherArray) {
-        [directoryWatcher invalidate];
+//        [directoryWatcher invalidate];
     }
     [self.directoryWatcherArray removeAllObjects];
     
@@ -272,8 +275,15 @@ static MDMMenuTool *tool = nil;
     for (NSMenuItem *menuItem in itemList) {
         if ([menuItem isKindOfClass:[MDMMenuSimulatorItem class]]) {
             MDMMenuSimulatorItem *simulatorItem = (MDMMenuSimulatorItem *)menuItem;
+            directoryWatcher = [DirectoryWatcher watchFolderWithPath:[NSString stringWithFormat:@"%@/Library/Developer/CoreSimulator/Devices/%@", [MDMXcrunTool getHomeDirectory], simulatorItem.simulatorModel.identifier] delegate:self];
+            if (directoryWatcher) {
+                [self.directoryWatcherArray addObject:directoryWatcher];
+            }
+            directoryWatcher = [DirectoryWatcher watchFolderWithPath:[NSString stringWithFormat:@"%@/Library/Developer/CoreSimulator/Devices/%@/data", [MDMXcrunTool getHomeDirectory], simulatorItem.simulatorModel.identifier] delegate:self];
+            if (directoryWatcher) {
+                [self.directoryWatcherArray addObject:directoryWatcher];
+            }
             directoryWatcher = [DirectoryWatcher watchFolderWithPath:[NSString stringWithFormat:@"%@/Library/Developer/CoreSimulator/Devices/%@/data/Containers/Bundle/Application", [MDMXcrunTool getHomeDirectory], simulatorItem.simulatorModel.identifier] delegate:self];
-            //TODO:空模拟器
             if (directoryWatcher) {
                 [self.directoryWatcherArray addObject:directoryWatcher];
             }

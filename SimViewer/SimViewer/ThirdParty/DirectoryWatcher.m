@@ -146,7 +146,6 @@
     
 	// call our delegate of the directory change
     CFAbsoluteTime currentTime = CFAbsoluteTimeGetCurrent();
-    NSLog(@"1323");
     if (currentTime - lastCallDelegateTime > 1.0) {
         [delegate directoryDidChange:self];
         lastCallDelegateTime = currentTime;

@@ -53,7 +53,7 @@
 #pragma mark - MDMMenuToolDelegate
 
 - (void)menuListDidChangedWithNewMenuList:(NSArray<NSMenuItem *> *)menuList {
-    NSLog(@"****");
+    NSLog(@"-->");
     [self updateMenuWithItemList:menuList];
 }
 
